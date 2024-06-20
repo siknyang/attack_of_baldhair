@@ -9,4 +9,9 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+
+    public void DungeonBtn()
+    {
+        SceneManager.LoadScene("DungeonScene");
+    }
 }
