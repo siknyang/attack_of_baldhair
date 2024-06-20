@@ -11,56 +11,38 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
+        // 싱글톤
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Application.persistentDataPath: 사용하고 있는 기기의 운영 체제에 따른 적정 저장 경로를 자동으로 찾아줌
         savePath = Application.persistentDataPath;
     }
 
     public void SaveData<T>(T json)     // 제네릭 타입의 데이터 저장
     {
-        File.WriteAllText(savePath + $"/{typeof(T).ToString()}.txt", JsonUtility.ToJson(json));     // 
-        Debug.Log("저장 완료: " + savePath + "/PlayerData.txt");
+        File.WriteAllText(savePath + $"/{typeof(T).ToString()}.txt", JsonUtility.ToJson(json));     // JSON으로 직렬화하여 타입 명으로 파일 저장
+        Debug.Log("저장 완료: " + savePath + $"/{typeof(T).ToString()}.txt");
     }
 
-    public void SavePlayerData(string json)    // 플레이어 데이터 저장
+    public T LoadData<T>()    // 제네릭 타입의 데이터 불러오기
     {
-        File.WriteAllText(savePath + "/PlayerData.txt", json);
-        Debug.Log("저장 완료: " +  savePath + "/PlayerData.txt");
+        if (!File.Exists(savePath + $"/{typeof(T).ToString()}.txt"))    // 경로에 데이터 없을 때 예외 처리
+            return JsonUtility.FromJson<T>(null);
+
+        string jsonData = File.ReadAllText(savePath + $"/{typeof(T).ToString()}.txt");
+        Debug.Log("불러오기 완료: " + savePath + $"/{typeof(T).ToString()}.txt");
+        return JsonUtility.FromJson<T>(jsonData);
     }
 
-    //public PlayerData LoadPlayerData()    // 플레이어 데이터 불러오기
-    //{
-    //    if (!File.Exists(savePath + "/PlayerData.txt"))    // 경로에 데이터 없을 때 예외 처리
-    //        return null;
-        
-    //    string jsonData = File.ReadAllText(savePath + "/PlayerData.txt");
-    //    return JsonUtility.FromJson<PlayerData>(jsonData);
-    //}
-
-    public void SaveInvenData(string json)    // 인벤토리 데이터 저장
+    public ItemSO LoadItemSOData(SlotData data)
     {
-        File.WriteAllText(savePath + "/InvenData.txt", json);
-        Debug.Log("저장 완료: " + savePath + "/InvenData.txt");
+        // Resources 폴더에 있는 ScriptableObject/경로에서 itemName인 SO를 불러옴
+        return Resources.Load<ItemSO>("ScriptableObject/Data/" + data.itemName);
     }
-
-    public InvenData LoadInvenData()    // 인벤토리 데이터 불러오기
-    {
-        if (!File.Exists(savePath + "/InvenData.txt"))    // 경로에 데이터 없을 때 예외 처리
-            return null;
-
-        string jsonData = File.ReadAllText(savePath + "/InvenData.txt");
-        return JsonUtility.FromJson<InvenData>(jsonData);
-    }
-
-    // 아이템 SO 스크립트 만들어지면 주석 풀기
-    // 아이템 SO 스크립트 이름 ItemData, 아니면 바꾸기
-    //public ItemData LoadItemSOData(SlotData data)
-    //{
-    //    // Resources 폴더에 있는 ScriptableObject/경로에서 itemName인 SO를 불러옴
-    //    return Resources.Load<ItemData>("ScriptableObject/경로" + data.itemName);
-    //}
 }
 
+// TODO: InvenData, SlotData 인벤토리 클래스로 옮기기
 // 저장하려는 데이터 묶음
 [Serializable]
 public class InvenData    // 슬롯들의 모음인 인벤토리
