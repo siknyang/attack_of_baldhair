@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 1037851811}
   - component: {fileID: 1037851815}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: StartBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,7 +1076,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uB2F9\uC2E0\uC740 \uD0C8\uBAA8\uD0C8\uBAA8\uBE54\uC5D0 \uB9DE\uC740 \uC138\uACC4\uC5D0
-    \uC9C4\uC785\uD558\uC168\uC2B5\uB2C8\uB2E4.\n\uD654\uB09C \uBE61\uBC15\uC774\uB4E4\uC774
+    \uC9C4\uC785\uD558\uC168\uC2B5\uB2C8\uB2E4.\n\uD654\uB09C \uBE61\uBE61\uC774\uB4E4\uC774
     \uB2F9\uC2E0\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4.\n\uAC00\uBC1C\uC744 \uB358\uC838\uC8FC\uBA74
     \uADF8\uB4E4\uC774 \uB9CC\uC871\uD558\uACE0 \uBB3C\uB7EC\uB0A9\uB2C8\uB2E4..."
 --- !u!222 &2036234677
