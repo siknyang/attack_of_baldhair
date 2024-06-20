@@ -13,10 +13,10 @@ public class Factory : MonoBehaviour
 
     public Text currentLevelText;
     public Text nextLevelText;
-    public Text coinsText;
+    public Text coinsText; // ( currentCoins / upgradeCost )
     public Button upgradeButton;
 
-    private bool canUpgrade;
+    private bool canUpgrade; // 업그레이드 버튼
 
     void Start()
     {
