@@ -47,7 +47,6 @@ public class Factory : MonoBehaviour
     {
         if (canUpgrade)
         {
-            Debug.Log("업그레이드버튼");
             currentCoins -= upgradeCost;
             currentLevel++;
             nextLevel++;
