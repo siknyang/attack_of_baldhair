@@ -1,69 +1,80 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera mainCamera;
     public GameObject unitPrefab;
-    public int unitNum; // 화면에 표시될 유닛 개수
-    private Queue<GameObject> activeUnit = new Queue<GameObject>();
-    private float unitLength = 31.3f;   // 유닛 길이
-    private float spawnZ = 15.0f;   // 생성될 Z 위치
+    public int unitNum;   // 화면에 표시될 유닛 개수
+    private Queue<GameObject> activeUnit = new Queue<GameObject>();     // 맵 유닛 담길 큐
+    private float unitLength = 25f;   // 유닛 길이: 맵 크기에 따라 변할 수 있음
+    private float spawnZ = 0.0f;   // 생성될 Z 위치
 
     void Start()
     {
-        camera = GetComponent<Camera>();
+        // 메인 카메라 찾아서 위치 참조
+        // 메인 카메라 - 플레이어 연결되면 플레이어 움직임에도 반응함
+        GameObject cameraObj = GameObject.FindGameObjectWithTag("MainCamera");
+        if (cameraObj != null)
+        {
+            mainCamera = cameraObj.GetComponent<Camera>();
+            Debug.Log("카메라 찾음");
+        }
+        else
+        {
+            Debug.LogError("Camera not found");
+            return;
+        }
 
+        InitializePool();
+        ActiveFirst();
+    }
+
+    private void InitializePool()   // 맵 유닛 미리 생성
+    {
         for (int i = 0; i < unitNum; i++)
         {
-            SpawnUnit();
+            GameObject instantiateUnit = Instantiate(unitPrefab, transform);    // 설정한 유닛 개수만큼 생성
+            instantiateUnit.SetActive(false);    // 비활성화
+            activeUnit.Enqueue(instantiateUnit);    // 큐에 넣기
+        }
+    }
+
+    private void ActiveFirst()    // 게임 시작했을 때 위치 겹치지 않게 모두 활성화
+    {
+        foreach (var units in activeUnit)
+        {
+            units.transform.position = new Vector3(0, -1f, spawnZ);
+            units.SetActive(true);
+            spawnZ += unitLength;
         }
     }
 
     void Update()
     {
-        GameObject usedUnit = activeUnit.Peek();
-        float cameraZ = camera.transform.position.z;
+        float cameraZ = mainCamera.transform.position.z;
 
-        // 생성 조건
-        if (cameraZ + 8 > usedUnit.transform.position.z + unitLength)
+        // 생성 조건: 카메라 시야 + 맵 유닛 길이 * 9 > 현재 맵 유닛 위치
+        if (cameraZ + unitLength * 14 > spawnZ)     // 맵 유닛 개수 변경되면 숫자 수정
         {
             SpawnUnit();
         }
-
-        // 제거 조건(현재 제거 방식이 개수가 부족할 때 오래된 것을 가져다가 쓰는 거라서 해당 코드 미작동. 하지만 예외가 있을 수 있으므로 일단 구현)
-        if (usedUnit.transform.position.z + unitLength < camera.transform.position.z)
-        {
-            RemoveUnit();
-        }
     }
 
-    private void SpawnUnit()
+    private void SpawnUnit()    // 맵 유닛 활성화
     {
         GameObject unitMap;
-        if (activeUnit.Count < unitNum)     // 생성
-        {
-            unitMap = Instantiate(unitPrefab, new Vector3(50, 1.4f, spawnZ), Quaternion.identity);
-            activeUnit.Enqueue(unitMap);
-        }
-        else    // 활성화
-        {
-            unitMap = activeUnit.Dequeue();
-            unitMap.transform.position = new Vector3(50, 1.4f, spawnZ);
-            unitMap.SetActive(true);
-            activeUnit.Enqueue(unitMap);
-        }
+        unitMap = activeUnit.Dequeue();
+        unitMap.transform.position = new Vector3(0, -1f, spawnZ);
+        unitMap.SetActive(true);
+        activeUnit.Enqueue(unitMap);
         spawnZ += unitLength;
-    }
 
-    private void RemoveUnit()
-    {
-        GameObject usedUnit = activeUnit.Peek();
-        if (usedUnit.transform.position.z + unitLength < camera.transform.position.z)
-        {
-            usedUnit.SetActive(false);
-            activeUnit.Dequeue();
-        }
+        // 제거 메서드는 따로 만들지 않음
+        // 활성화할 때 개수가 부족하면 오래된 걸 자동으로 비활성화하여 가져오는 점을 이용,
+        // Update 메서드에서 생성 조건으로 제거 범위를 조정함으로써 제거 메서드 역할을 함
     }
 }
