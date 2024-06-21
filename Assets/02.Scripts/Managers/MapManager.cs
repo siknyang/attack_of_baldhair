@@ -21,7 +21,6 @@ public class MapManager : MonoBehaviour
         if (cameraObj != null)
         {
             mainCamera = cameraObj.GetComponent<Camera>();
-            Debug.Log("카메라 찾음");
         }
         else
         {
