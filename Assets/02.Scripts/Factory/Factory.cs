@@ -13,10 +13,10 @@ public class Factory : MonoBehaviour
 
     public Text currentLevelText;
     public Text nextLevelText;
-    public Text coinsText;
+    public Text coinsText; // ( currentCoins / upgradeCost )
     public Button upgradeButton;
 
-    private bool canUpgrade;
+    private bool canUpgrade; // 업그레이드 버튼
 
     void Start()
     {
@@ -34,9 +34,11 @@ public class Factory : MonoBehaviour
 
     void UpdateUI()
     {
-        currentLevelText.text = "레벨 " + currentLevel;
+        currentLevelText.text = "공장 레벨 " + currentLevel;
         nextLevelText.text = "다음 레벨 " + nextLevel;
-        coinsText.text = string.Format("{0} / {1}", currentCoins, upgradeCost);
+
+        coinsText.text = $"<color=#FF0000>{currentCoins}</color> / {upgradeCost}";
+        //coinsText.text = string.Format("{0} / {1}", currentCoins, upgradeCost);
         // string.Format으로 한줄에 입력하기
 
         canUpgrade = currentCoins >= upgradeCost;   // 현재보유코인 >= 필요코인 이면 업그레이드 가능
