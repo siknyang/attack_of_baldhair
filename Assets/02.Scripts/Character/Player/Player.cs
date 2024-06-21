@@ -12,15 +12,6 @@ public class Player : CharacterStats
     {
         LoadData();     // 게임이 시작할 때 저장된 데이터 불러오기
 
-        //level = 1;
-        //health = 100;
-        //attackPower = 10;
-        //attackSpeed = 1.0f;
-        //moveSpeed = 1.0f;
-        //attackRange = 3.0f;
-        //experience = 0;
-        //coin = 0;
-
         stateMachine = new PlayerStateMachine(this);
         Debug.Log("플레이어" + stateMachine.MovementSpeed);
 
