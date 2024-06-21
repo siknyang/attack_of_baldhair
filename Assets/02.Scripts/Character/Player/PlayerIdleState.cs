@@ -11,14 +11,14 @@ public class PlayerIdleState : BaseState
     public override void Enter()
     {
         stateMachine.MovementSpeedModifier = 0f;
-        Debug.Log("idleState Enter");
         base.Enter();
+        StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("idleState Exit");
+        StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
     public override void Update()

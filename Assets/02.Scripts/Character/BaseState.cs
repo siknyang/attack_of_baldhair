@@ -6,20 +6,23 @@ using UnityEngine;
 public class BaseState : IState
 {
     protected PlayerStateMachine stateMachine;
+    protected readonly PlayerData playerData;
 
     public BaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
+        playerData = stateMachine.Player.Data.PlayerData;
     }
 
     public virtual void Enter()
     {
-        //AddInputActionsCallbacks();
+        //Enter();
+        //StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
     public virtual void Exit()
     {
-        //RemoveInputActionsCallbacks();
+        
     }
 
 
@@ -31,16 +34,22 @@ public class BaseState : IState
     public virtual void Update()
     {
         Move();
+
+        if (stateMachine.IsAttacking)
+        {
+            OnAttack();
+            return;
+        }
     }
 
     protected void StartAnimation(int animationHash)
     {
-        //stateMachine.Player.Animator.SetBool(animationHash, true);
+        stateMachine.Player.Animator.SetBool(animationHash, true);
     }
 
     protected void StopAnimation(int animationHash)
     {
-        //stateMachine.Player.Animator.SetBool(animationHash, false);
+        stateMachine.Player.Animator.SetBool(animationHash, false);
     }
 
     
@@ -112,5 +121,9 @@ public class BaseState : IState
         Debug.Log("movementSpeedModifier: " + stateMachine.MovementSpeedModifier);
         return movementSpeed;
     }
-    
+
+    protected virtual void OnAttack()
+    {
+        stateMachine.ChangeState(stateMachine.AttackState);
+    }
 }

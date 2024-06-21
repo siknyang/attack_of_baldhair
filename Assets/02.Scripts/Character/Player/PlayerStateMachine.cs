@@ -9,8 +9,8 @@ public class PlayerStateMachine : StateMachine
     public PlayerIdleState IdleState { get; }
     public PlayerWalkState WalkState { get; }
     public PlayerAttackState AttackState { get; }
-    public PlayerHitState HitState { get; }
-    public PlayerDieState DieState { get; }
+    //public PlayerHitState HitState { get; }
+    //public PlayerDieState DieState { get; }
 
     // 움직임 관련 데이터
     public Vector3 MoveDirection { get; set; } // 움직임 방향
@@ -19,6 +19,8 @@ public class PlayerStateMachine : StateMachine
     public float RotationDamping { get; private set; } // 회전 감속도
     public float MovementSpeedModifier { get; set; } = 1f; // 이동 속도 보정
 
+    public bool IsAttacking { get; set; }
+
     public PlayerStateMachine(Player player)
     {
         this.Player = player;
@@ -26,12 +28,12 @@ public class PlayerStateMachine : StateMachine
         IdleState = new PlayerIdleState(this);
         WalkState = new PlayerWalkState(this);
         AttackState = new PlayerAttackState(this);
-        HitState = new PlayerHitState(this);
-        DieState = new PlayerDieState(this);
+        //HitState = new PlayerHitState(this);
+        //DieState = new PlayerDieState(this);
 
-        MovementSpeed = 5f;
-        RotationDamping = 10f;
-        MovementSpeedModifier = 1f;
+        MovementSpeed = player.Data.PlayerData.BaseSpeed;
+        RotationDamping = player.Data.PlayerData.BaseRotationDamping;
+        //MovementSpeedModifier = 1f;
     }
 
     // 가장 가까운 적을 찾는 메서드

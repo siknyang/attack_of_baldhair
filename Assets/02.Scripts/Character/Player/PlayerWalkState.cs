@@ -5,24 +5,21 @@ using UnityEngine;
 
 public class PlayerWalkState : BaseState
 {
-
-    private const float WalkSpeedModifier = 1.0f;
-
     public PlayerWalkState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
     }
 
     public override void Enter()
     {
-        stateMachine.MovementSpeedModifier = WalkSpeedModifier;
+        stateMachine.MovementSpeedModifier = playerData.WalkSpeedModifier;
         base.Enter();
-        Debug.Log("walkState Enter");
+        StartAnimation(stateMachine.Player.AnimationData.WalkParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("walkState Exit");
+        StopAnimation(stateMachine.Player.AnimationData.WalkParameterHash);
     }
 
     public override void Update()

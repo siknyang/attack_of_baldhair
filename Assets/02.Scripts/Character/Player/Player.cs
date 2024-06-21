@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Player : CharacterStats
 {
+    [field:SerializeField] public PlayerSO Data { get; private set; }
+
+    [field:Header("Animations")]
+    [field:SerializeField] public PlayerAnimationData AnimationData {  get; private set; }
+
+    public Animator Animator { get; private set; }
+
     public CharacterController Controller { get; private set; }
 
     private PlayerStateMachine stateMachine;
@@ -20,7 +27,6 @@ public class Player : CharacterStats
         coin = 0;
 
         stateMachine = new PlayerStateMachine(this);
-        Debug.Log("플레이어" + stateMachine.MovementSpeed);
 
         Controller = GetComponent<CharacterController>();
         if (Controller == null)
@@ -31,8 +37,10 @@ public class Player : CharacterStats
 
     private void Start()
     {
+        AnimationData.Initialize();
+        Animator = GetComponentInChildren<Animator>();
         stateMachine.ChangeState(stateMachine.IdleState);
-        Debug.Log("플레이어" + stateMachine.MovementSpeed);
+        
     }
 
     private void Update()
