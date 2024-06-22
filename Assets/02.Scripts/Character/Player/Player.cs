@@ -1,10 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : CharacterStats
 {
+    [field:SerializeField] public PlayerSO Data { get; private set; }
+
+    [field:Header("Animations")]
+    [field:SerializeField] public PlayerAnimationData AnimationData {  get; private set; }
+
+    public Rigidbody Rigidbody { get; private set; }
+    public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
 
     private PlayerStateMachine stateMachine;
 
@@ -13,19 +19,17 @@ public class Player : CharacterStats
         LoadData();     // 게임이 시작할 때 저장된 데이터 불러오기
 
         stateMachine = new PlayerStateMachine(this);
-        Debug.Log("플레이어" + stateMachine.MovementSpeed);
 
+        AnimationData.Initialize();
+        Rigidbody = GetComponent<Rigidbody>();
+        Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
-        if (Controller == null)
-        {
-            Debug.Log("캐릭터컨트롤러 없음");
-        }
+        ForceReceiver = GetComponent<ForceReceiver>();
     }
 
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
-        Debug.Log("플레이어" + stateMachine.MovementSpeed);
     }
 
     private void Update()
