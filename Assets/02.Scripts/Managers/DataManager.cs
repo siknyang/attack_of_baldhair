@@ -7,13 +7,39 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
+    public static DataManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<DataManager>();
+
+                if (instance == null)
+                {
+                    GameObject gameObject = new GameObject("DataManager");
+                    instance = gameObject.AddComponent<DataManager>();
+                }
+            }
+            return instance;
+        }
+    }
+
     string savePath;
 
     private void Awake()
     {
         // 싱글톤
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         // Application.persistentDataPath: 사용하고 있는 기기의 운영 체제에 따른 적정 저장 경로를 자동으로 찾아줌
         savePath = Application.persistentDataPath;
