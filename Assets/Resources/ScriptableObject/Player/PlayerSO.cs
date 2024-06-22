@@ -13,8 +13,6 @@ public class PlayerData
     [field: Header("WalkData")]
     [field: SerializeField][field: Range(0f, 2f)] public float WalkSpeedModifier { get; private set; } = 0.225f;
 
-    //[field: Header("AttackData")]
-    //[field: SerializeField][field: Range(0f, 2f)] public float RunSpeedModifier { get; private set; } = 1f;
 
 }
 

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class BaseState : IState
@@ -16,8 +13,7 @@ public class BaseState : IState
 
     public virtual void Enter()
     {
-        //Enter();
-        //StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
+        
     }
 
     public virtual void Exit()
