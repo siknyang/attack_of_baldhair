@@ -19,10 +19,6 @@ public class EnemyBaseState : IState
     {
     }
 
-    public virtual void HandleInput()
-    {
-    }
-
     public virtual void PhysicsUpdate()
     {
     }

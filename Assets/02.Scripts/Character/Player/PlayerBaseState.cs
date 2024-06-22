@@ -13,29 +13,19 @@ public class PlayerBaseState : IState
 
     public virtual void Enter()
     {
-
     }
 
     public virtual void Exit()
     {
-
     }
-
 
     public virtual void PhysicsUpdate()
     {
-
     }
 
     public virtual void Update()
     {
         Move();
-
-        if (stateMachine.IsAttacking)
-        {
-            OnAttack();
-            return;
-        }
     }
 
     protected void StartAnimation(int animationHash)
@@ -60,52 +50,21 @@ public class PlayerBaseState : IState
 
     protected Vector3 GetMovementDirection()
     {
-        /*
-        Vector3 forward = stateMachine.MainCamTransform.forward;
-        Vector3 right = stateMachine.MainCamTransform.right;
 
-        forward.y = 0;
-        right.y = 0;
-
-        forward.Normalize();
-        right.Normalize();
-
-        return forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
-        */
-
-        // 가장 가까운 적의 위치 가져옴
-        Transform nearestEnemy = stateMachine.GetClosestEnemyInAttackRange();
-
-        if (nearestEnemy != null)
-        {
-            // 적의 위치를 타겟으로 설정하고, 그 방향을 구함
-            Vector3 targetPosition = nearestEnemy.position;
-            Vector3 moveDirection = (targetPosition - stateMachine.Player.transform.position).normalized;
-
-            // 방향 반환
-            return moveDirection;
-        }
-        else
-        {
-            // 적이 없으면 움직이지 않도록 Vector3.zero를 반환
-            return Vector3.zero;
-        }
+        Vector3 dir = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).normalized;
+        return dir;
     }
 
-    private void Move(Vector3 direction)
+    void Move(Vector3 movementDirection)
     {
         float movementSpeed = GetMovementSpeed();
-        //stateMachine.Player.Controller.Move(((direction * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.deltaTime);
-        stateMachine.Player.transform.Translate(direction * movementSpeed * Time.deltaTime, Space.World);
-        Debug.Log("Move speed: " + movementSpeed);
+        stateMachine.Player.Controller.Move(((movementDirection * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.deltaTime);
     }
 
 
     private float GetMovementSpeed()
     {
         float movementSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier * stateMachine.Player.moveSpeed; // 플레이어의 스피드 곱해주기(레벨업이나 아이템으로 인해 증가 되었을 때)
-        Debug.Log("Movement Speed: " + stateMachine.MovementSpeed);
-        Debug.Log("movementSpeedModifier: " + stateMachine.MovementSpeedModifier);
         return movementSpeed;
     }
 
@@ -144,8 +103,10 @@ public class PlayerBaseState : IState
         }
     }
 
-    protected virtual void OnAttack()
+    protected bool IsInChasingRange()
     {
-        stateMachine.ChangeState(stateMachine.AttackState);
+        float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
+
+        return enemyDistanceSqr <= stateMachine.Player.Data.EnemyChasingRange * stateMachine.Player.Data.EnemyChasingRange;
     }
 }

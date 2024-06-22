@@ -8,8 +8,6 @@ public class PlayerGroundData
     [field: SerializeField][field: Range(0f, 25f)] public float BaseSpeed { get; private set; } = 5f;
     [field: SerializeField][field: Range(0f, 25f)] public float BaseRotationDamping { get; private set; } = 1f;
 
-    [field: Header("IdleData")]
-
     [field: Header("WalkData")]
     [field: SerializeField][field: Range(0f, 2f)] public float WalkSpeedModifier { get; private set; } = 0.225f;
 
@@ -27,7 +25,6 @@ public class PlayerAttackData
 [Serializable]
 public class AttackInfoData
 {
-    [field: SerializeField] public string AttackName { get; private set; }
     [field: SerializeField][field: Range(0f, 3f)] public float ForceTransitionTime { get; private set; }// 공격했을 때 댐핑
     [field: SerializeField][field: Range(-10f, 10f)] public float Force { get; private set; }
     [field: SerializeField] public int Damage;
@@ -42,4 +39,9 @@ public class PlayerSO : ScriptableObject
     [field: SerializeField] public PlayerGroundData GroundData { get; private set; }
 
     [field: SerializeField] public PlayerAttackData AttackData { get; private set; }
+    [field: SerializeField] public AttackInfoData AttackInfoData { get; private set; }
+
+
+    [field: SerializeField] public float EnemyChasingRange { get; private set; } = 10f;
+    [field: SerializeField] public float AttackRange { get; private set; } = 1.5f;
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : CharacterStats
@@ -9,10 +7,9 @@ public class Player : CharacterStats
     [field:Header("Animations")]
     [field:SerializeField] public PlayerAnimationData AnimationData {  get; private set; }
 
+    public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
-
     public CharacterController Controller { get; private set; }
-
     public ForceReceiver ForceReceiver { get; private set; }
 
     private PlayerStateMachine stateMachine;
@@ -23,21 +20,16 @@ public class Player : CharacterStats
 
         stateMachine = new PlayerStateMachine(this);
 
+        AnimationData.Initialize();
+        Rigidbody = GetComponent<Rigidbody>();
+        Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
-        if (Controller == null)
-        {
-            Debug.Log("캐릭터컨트롤러 없음");
-        }
-
         ForceReceiver = GetComponent<ForceReceiver>();
     }
 
     private void Start()
     {
-        AnimationData.Initialize();
-        Animator = GetComponentInChildren<Animator>();
         stateMachine.ChangeState(stateMachine.IdleState);
-        
     }
 
     private void Update()

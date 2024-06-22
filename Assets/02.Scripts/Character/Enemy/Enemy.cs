@@ -11,9 +11,9 @@ public class Enemy : CharacterStats
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
-    private EnemyStateMachine stateMachine;
-    
     public ForceReceiver ForceReceiver { get; private set; }
+
+    private EnemyStateMachine stateMachine;
 
     private void Awake()
     {

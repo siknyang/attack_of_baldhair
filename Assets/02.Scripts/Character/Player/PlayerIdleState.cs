@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : PlayerGroundState
+public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
@@ -12,21 +10,25 @@ public class PlayerIdleState : PlayerGroundState
     {
         stateMachine.MovementSpeedModifier = 0f;
         base.Enter();
+        StartAnimation(stateMachine.Player.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
+        StopAnimation(stateMachine.Player.AnimationData.GroundParameterHash);
         StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
     public override void Update()
     {
         base.Update();
-        if (GetMovementDirection() != Vector3.zero)
+
+        if (IsInChasingRange())
         {
             stateMachine.ChangeState(stateMachine.WalkState);
+            return;
         }
     }
 }
