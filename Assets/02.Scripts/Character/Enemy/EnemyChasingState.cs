@@ -21,7 +21,7 @@ public class EnemyChasingState : EnemyBaseState
     {
         base.Update();
 
-        if (!IsInChaseRange())
+        if (!IsInChasingRange())
         {
             stateMachine.ChangeState(stateMachine.IdleState);
             return;

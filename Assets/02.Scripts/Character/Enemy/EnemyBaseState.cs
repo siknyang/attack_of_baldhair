@@ -41,6 +41,11 @@ public class EnemyBaseState : IState
         Move(movementDirection);
     }
 
+    protected void ForceMove()
+    {
+        stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
+    }
+
     private Vector3 GetMovementDirection()
     {
         Vector3 dir = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).normalized;
@@ -97,7 +102,7 @@ public class EnemyBaseState : IState
         }
     }
 
-    protected bool IsInChaseRange()
+    protected bool IsInChasingRange()
     {
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 

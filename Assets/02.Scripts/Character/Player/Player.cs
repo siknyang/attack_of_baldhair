@@ -13,6 +13,8 @@ public class Player : CharacterStats
 
     public CharacterController Controller { get; private set; }
 
+    public ForceReceiver ForceReceiver { get; private set; }
+
     private PlayerStateMachine stateMachine;
 
     private void Awake()
@@ -26,6 +28,8 @@ public class Player : CharacterStats
         {
             Debug.Log("캐릭터컨트롤러 없음");
         }
+
+        ForceReceiver = GetComponent<ForceReceiver>();
     }
 
     private void Start()

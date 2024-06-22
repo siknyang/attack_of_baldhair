@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class EnemyAttackState : EnemyBaseState
 {
 
@@ -27,6 +29,8 @@ public class EnemyAttackState : EnemyBaseState
     {
         base.Update();
 
+        ForceMove();
+
         float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "Attack");
         if (normalizedTime < 1f)
         {
@@ -55,7 +59,7 @@ public class EnemyAttackState : EnemyBaseState
         if (alreadyAppliedForce) return;
         alreadyAppliedForce = true;
 
-        stateMachine.Enemy.Reset();
+        stateMachine.Enemy.ForceReceiver.Reset();
 
         stateMachine.Enemy.ForceReceiver.AddForce(Vector3.forward * stateMachine.Enemy.Data.Force);
     }

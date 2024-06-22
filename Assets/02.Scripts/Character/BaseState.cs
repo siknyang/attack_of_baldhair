@@ -95,9 +95,18 @@ public class BaseState : IState
     private void Move(Vector3 direction)
     {
         float movementSpeed = GetMovementSpeed();
-        //stateMachine.Player.Controller.Move((direction * movementSpeed) * Time.deltaTime);
-        stateMachine.Player.transform.Translate(direction * movementSpeed * Time.deltaTime, Space.World);
+        stateMachine.Player.Controller.Move(((direction * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.deltaTime);
+        //stateMachine.Player.transform.Translate(direction * movementSpeed * Time.deltaTime, Space.World);
         Debug.Log("Move speed: " + movementSpeed);
+    }
+
+
+    private float GetMovementSpeed()
+    {
+        float movementSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier * stateMachine.Player.moveSpeed; // 플레이어의 스피드 곱해주기(레벨업이나 아이템으로 인해 증가 되었을 때)
+        Debug.Log("Movement Speed: " + stateMachine.MovementSpeed);
+        Debug.Log("movementSpeedModifier: " + stateMachine.MovementSpeedModifier);
+        return movementSpeed;
     }
 
     private void Rotate(Vector3 direction)
@@ -110,12 +119,29 @@ public class BaseState : IState
         }
     }
 
-    private float GetMovementSpeed()
+    protected void ForceMove()
     {
-        float movementSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier * stateMachine.Player.moveSpeed; // 플레이어의 스피드 곱해주기(레벨업이나 아이템으로 인해 증가 되었을 때)
-        Debug.Log("Movement Speed: " + stateMachine.MovementSpeed);
-        Debug.Log("movementSpeedModifier: " + stateMachine.MovementSpeedModifier);
-        return movementSpeed;
+        stateMachine.Player.Controller.Move(stateMachine.Player.ForceReceiver.Movement * Time.deltaTime);
+    }
+
+
+    protected float GetNormalizedTime(Animator animator, string tag)
+    {
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
+
+        if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
+        {
+            return nextInfo.normalizedTime;
+        }
+        else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
+        {
+            return currentInfo.normalizedTime;
+        }
+        else
+        {
+            return 0f;
+        }
     }
 
     protected virtual void OnAttack()

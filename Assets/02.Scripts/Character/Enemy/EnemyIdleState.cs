@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class EnemyIdleState : EnemyBaseState
 {
     public EnemyIdleState(EnemyStateMachine stateMachine) : base(stateMachine)
@@ -22,7 +24,7 @@ public class EnemyIdleState : EnemyBaseState
     {
         base.Update();
 
-        if (IsInChaseRange())
+        if (IsInChasingRange())
         {
             stateMachine.ChangeState(stateMachine.ChasingState);
             return;

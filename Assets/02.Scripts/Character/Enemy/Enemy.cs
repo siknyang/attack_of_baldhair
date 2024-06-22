@@ -12,7 +12,8 @@ public class Enemy : CharacterStats
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
     private EnemyStateMachine stateMachine;
-
+    
+    public ForceReceiver ForceReceiver { get; private set; }
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class Enemy : CharacterStats
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
+        ForceReceiver = GetComponent<ForceReceiver>();
 
         stateMachine = new EnemyStateMachine(this);
     }
