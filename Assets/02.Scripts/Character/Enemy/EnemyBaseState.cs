@@ -3,12 +3,12 @@ using UnityEngine;
 public class EnemyBaseState : IState
 {
     protected EnemyStateMachine stateMachine;
-    protected readonly PlayerData playerData;
+    protected readonly PlayerGroundData groundData;
 
     public EnemyBaseState(EnemyStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
-        playerData = stateMachine.Enemy.Data.PlayerData;
+        groundData = stateMachine.Enemy.Data.GroundData;
     }
 
     public virtual void Enter()
@@ -32,6 +32,16 @@ public class EnemyBaseState : IState
         Move();
     }
 
+    protected void StartAnimation(int animationHash)
+    {
+        stateMachine.Enemy.Animator.SetBool(animationHash, true);
+    }
+
+    protected void StopAnimation(int animationHash)
+    {
+        stateMachine.Enemy.Animator.SetBool(animationHash, false);
+    }
+
     private void Move()
     {
         Vector3 movementDirection = GetMovementDirection();
@@ -39,11 +49,6 @@ public class EnemyBaseState : IState
         Rotate(movementDirection);
 
         Move(movementDirection);
-    }
-
-    protected void ForceMove()
-    {
-        stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
     }
 
     private Vector3 GetMovementDirection()
@@ -55,16 +60,7 @@ public class EnemyBaseState : IState
     void Move(Vector3 movementDirection)
     {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Enemy.Controller.Move((movementDirection * movementSpeed) * Time.deltaTime);
-    }
-
-    void Rotate(Vector3 movementDirection)
-    {
-        if (movementDirection != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
-            stateMachine.Enemy.transform.rotation = Quaternion.Lerp(stateMachine.Enemy.transform.rotation, targetRotation, stateMachine.RotationDamping * Time.deltaTime);
-        }
+        stateMachine.Enemy.Controller.Move(((movementDirection * movementSpeed) + stateMachine.Enemy.ForceReceiver.Movement) * Time.deltaTime);
     }
 
     private float GetMovementSpeed()
@@ -73,14 +69,19 @@ public class EnemyBaseState : IState
         return movementSpeed;
     }
 
-    protected void StartAnimation(int animationHash)
+    private void Rotate(Vector3 direction)
     {
-        stateMachine.Enemy.Animator.SetBool(animationHash, true);
+        if (direction != Vector3.zero)
+        {
+            Transform playerTransform = stateMachine.Enemy.transform;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, stateMachine.RotationDamping * Time.deltaTime);
+        }
     }
 
-    protected void StopAnimation(int animationHash)
+    protected void ForceMove()
     {
-        stateMachine.Enemy.Animator.SetBool(animationHash, false);
+        stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
     }
 
     protected float GetNormalizedTime(Animator animator, string tag)
@@ -101,6 +102,7 @@ public class EnemyBaseState : IState
             return 0f;
         }
     }
+
 
     protected bool IsInChasingRange()
     {

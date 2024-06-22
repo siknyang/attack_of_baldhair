@@ -11,12 +11,14 @@ public class EnemyIdleState : EnemyBaseState
         stateMachine.MovementSpeedModifier = 0f;
 
         base.Enter();
+        StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
+        StopAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
     }
 

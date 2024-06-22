@@ -1,24 +1,24 @@
 using UnityEngine;
 
-public class BaseState : IState
+public class PlayerBaseState : IState
 {
     protected PlayerStateMachine stateMachine;
-    protected readonly PlayerData playerData;
+    protected readonly PlayerGroundData groundData;
 
-    public BaseState(PlayerStateMachine stateMachine)
+    public PlayerBaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
-        playerData = stateMachine.Player.Data.PlayerData;
+        groundData = stateMachine.Player.Data.GroundData;
     }
 
     public virtual void Enter()
     {
-        
+
     }
 
     public virtual void Exit()
     {
-        
+
     }
 
 
@@ -48,7 +48,7 @@ public class BaseState : IState
         stateMachine.Player.Animator.SetBool(animationHash, false);
     }
 
-    
+
     private void Move()
     {
         Vector3 movementDirection = GetMovementDirection();
@@ -95,8 +95,8 @@ public class BaseState : IState
     private void Move(Vector3 direction)
     {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Player.Controller.Move(((direction * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.deltaTime);
-        //stateMachine.Player.transform.Translate(direction * movementSpeed * Time.deltaTime, Space.World);
+        //stateMachine.Player.Controller.Move(((direction * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.deltaTime);
+        stateMachine.Player.transform.Translate(direction * movementSpeed * Time.deltaTime, Space.World);
         Debug.Log("Move speed: " + movementSpeed);
     }
 

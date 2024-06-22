@@ -9,6 +9,7 @@ public class PlayerStateMachine : StateMachine
     public PlayerIdleState IdleState { get; }
     public PlayerWalkState WalkState { get; }
     public PlayerAttackState AttackState { get; }
+    public PlayerJustAttackState JustAttackState { get; }
     //public PlayerHitState HitState { get; }
     //public PlayerDieState DieState { get; }
 
@@ -28,13 +29,35 @@ public class PlayerStateMachine : StateMachine
         IdleState = new PlayerIdleState(this);
         WalkState = new PlayerWalkState(this);
         AttackState = new PlayerAttackState(this);
+        JustAttackState = new PlayerJustAttackState(this);
         //HitState = new PlayerHitState(this);
         //DieState = new PlayerDieState(this);
 
-        MovementSpeed = player.Data.PlayerData.BaseSpeed;
-        RotationDamping = player.Data.PlayerData.BaseRotationDamping;
-        //MovementSpeedModifier = 1f;
+        MovementSpeed = player.Data.GroundData.BaseSpeed;
+        RotationDamping = player.Data.GroundData.BaseRotationDamping;
+        MovementSpeedModifier = 1f;
     }
+
+    public void Update()
+    {
+        // 주변에 적이 있는지 확인
+        Transform nearestEnemy = GetClosestEnemyInAttackRange();
+
+        // 적이 감지되면 어택 상태로 전환
+        if (nearestEnemy != null)
+        {
+            ChangeState(AttackState);
+        }
+        else
+        {
+            // 적이 없으면 기본 상태로 전환 (Idle 상태)
+            ChangeState(IdleState);
+        }
+
+        // 현재 상태 업데이트
+        currentState?.Update();
+    }
+
 
     // 가장 가까운 적을 찾는 메서드
     public Transform GetClosestEnemyInAttackRange()
