@@ -15,8 +15,13 @@ public class Enemy : CharacterStats
 
     private EnemyStateMachine stateMachine;
 
+    public HealthSystem Health { get; private set; }
+
+    [field:SerializeField] public EnemyWeapon Weapon { get; private set; }
+
     private void Awake()
     {
+        health = 50;
         attackPower = 8;
         attackSpeed = 1.2f;
         experience = 50;
@@ -27,6 +32,7 @@ public class Enemy : CharacterStats
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
+        Health = GetComponent<HealthSystem>();
 
         stateMachine = new EnemyStateMachine(this);
     }
@@ -34,6 +40,7 @@ public class Enemy : CharacterStats
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
+        Health.OnDie += OnDie;
     }
 
     private void Update()
@@ -44,6 +51,12 @@ public class Enemy : CharacterStats
     private void FixedUpdate()
     {
         stateMachine.PhysicsUpdate();
+    }
+
+    private void OnDie()
+    {
+        Animator.SetTrigger("Die");
+        enabled = false;
     }
 
     private void OnDrawGizmosSelected()// 에너미의 타켓(플레이어)공격/추적(감지) 범위 기즈모

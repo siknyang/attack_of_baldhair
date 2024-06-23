@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyStateMachine : StateMachine
 {
     public Enemy Enemy { get; }
-    public GameObject Target { get; private set; }
+    public HealthSystem Target { get; private set; }
     public EnemyIdleState IdleState { get; }
     public EnemyChasingState ChasingState { get; }
     public EnemyAttackState AttackState { get; }
@@ -16,7 +16,7 @@ public class EnemyStateMachine : StateMachine
     public EnemyStateMachine(Enemy enemy)
     {
         this.Enemy = enemy;
-        Target = GameObject.FindGameObjectWithTag("Player");
+        Target = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthSystem>();
 
         IdleState = new EnemyIdleState(this);
         ChasingState = new EnemyChasingState(this);
