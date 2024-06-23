@@ -807,7 +807,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -252}
-  m_SizeDelta: {x: 500, y: 100}
+  m_SizeDelta: {x: 450, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1313204892
 MonoBehaviour:
@@ -1459,8 +1459,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE61\uBE61\uC774\uAC00 \uB418\uACE0 \uC2F6\uC9C0 \uC54A\uC740 \uC790...\n\uB2C9\uB124\uC784\uC744
-    \uC785\uB825\uD558\uC2DC\uC624..."
+  m_Text: "\uB2C9\uB124\uC784\uC744 \uC785\uB825\uD558\uC138\uC694..."
 --- !u!222 &2042235624
 CanvasRenderer:
   m_ObjectHideFlags: 0
