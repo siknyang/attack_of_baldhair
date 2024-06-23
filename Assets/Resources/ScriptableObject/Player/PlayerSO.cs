@@ -43,5 +43,5 @@ public class PlayerSO : ScriptableObject
 
 
     [field: SerializeField] public float EnemyChasingRange { get; private set; } = 10f;
-    [field: SerializeField] public float AttackRange { get; private set; } = 1.5f;
+    [field: SerializeField] public float AttackRange { get; private set; } = 3.0f;
 }

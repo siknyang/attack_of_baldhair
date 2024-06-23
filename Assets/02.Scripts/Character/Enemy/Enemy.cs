@@ -45,4 +45,17 @@ public class Enemy : CharacterStats
     {
         stateMachine.PhysicsUpdate();
     }
+
+    private void OnDrawGizmosSelected()// 에너미의 타켓(플레이어)공격/추적(감지) 범위 기즈모
+    {
+        if (Data == null) return;
+
+        // 공격 범위
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, Data.AttackRange);
+
+        // 추적 범위
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, Data.PlayerChasingRange);
+    }
 }
