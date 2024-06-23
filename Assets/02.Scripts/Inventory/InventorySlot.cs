@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour
     public Image itemImage;
     public Text itemName;
     public Text itemInfo;
+
     public Button equipButton;
     private bool isEquipped = false; // 현재 아이템 장착 상태
     // false = 해제된 상태, true = 장착된 상태

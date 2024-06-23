@@ -35,4 +35,20 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    // 아이템을 인벤토리에 추가하는 메서드
+    public void AddItem(string name, string info, Sprite image)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (!slots[i].gameObject.activeInHierarchy)
+            {
+                slots[i].itemImage.sprite = image;
+                slots[i].itemName.text = name;
+                slots[i].itemInfo.text = info;
+                slots[i].gameObject.SetActive(true);
+                break;
+            }
+        }
+    }
 }
