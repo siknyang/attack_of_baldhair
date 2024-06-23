@@ -7,12 +7,18 @@ public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager Instance;
 
-    [SerializeField]
-    public float enemySpawnRate;
+    public GameObject gameClearPanel;
+    public GameObject gameOverPanel;
+
+    public GameObject playerPrefab;
+    public Transform playerSpawnPoint;
+    public Transform[] enemySpawnPoints;
+    public GameObject enemyPrefab;
 
     public DungeonSO[] dungeonSOArray;
-
     private Dictionary<string,  DungeonSO> activeDungeons = new Dictionary<string, DungeonSO>();
+
+    private Player player;
 
     private void Awake()
     {
@@ -35,52 +41,84 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
+    public void Initialize(Player player)
+    {
+        this.player = player;
+    }
+
     public void EnterDungeon(string dungeonName)
     {
         if (activeDungeons.ContainsKey(dungeonName))
         {
             DungeonSO dungeonSO = activeDungeons[dungeonName];
-            int enemyCount = CalculateEnemyCount(dungeonSO);
-            StartCoroutine(DungeonBattle(dungeonSO, enemyCount));
+            StartCoroutine(DungeonBattle(dungeonSO));
         }
     }
 
-    IEnumerator DungeonBattle(DungeonSO dungeonSO, int enemyCount)
+    IEnumerator DungeonBattle(DungeonSO dungeonSO)
     {
-        int spawnedEnemies = 0;
-        int diedEnemies = 0;
+        List<Enemy> enemies = SpawnEnemy(CalculateEnemyCount(dungeonSO));
 
-        while (spawnedEnemies < enemyCount)
-        {
-            yield return new WaitForSeconds(dungeonSO.dungeonLv);
-            SpawnEnemy(dungeonSO.name);
-            spawnedEnemies++;
-        }
-        while (diedEnemies < enemyCount)
+        while (player.health > 0 && enemies.Count > 0)
         {
             yield return null;
+            enemies = enemies.FindAll(enemy => enemy != null && enemy.health > 0);
         }
 
-        DungeonCleared(dungeonSO.name);
-    }
-
-    private void SpawnEnemy(string dungeonName)
-    {
-        //TODO: 적 스폰 로직
-        //TODO: 적 사망시 사망 메서드 호출
-    }
-
-    private void DungeonCleared(string dungeonName)
-    {
-        GiveReward(dungeonName);
-    }
-
-    private void GiveReward(string dungeonName)
-    {
-        if (activeDungeons.ContainsKey(dungeonName))
+        if(player.health > 0)
         {
-            int reward = activeDungeons[dungeonName].reward;
-            //TODO: 로직 추가
+            DungeonCleared(dungeonSO);
+            gameClearPanel.SetActive(true);
+        }
+        else
+        {
+            gameOverPanel.SetActive(true);
+        }
+
+
+    }
+
+    private List<Enemy> SpawnEnemy(int enemyCount)
+    {
+        List<Enemy> enemies = new List<Enemy>();
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            Transform spawnPoint = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length)]; //Random.Range가 그냥 호출은 되지 않아서 앞에 UnityEngine 추가
+            GameObject enemyGO = Instantiate(enemyPrefab); //이름 변경 가능성 O, 아무튼 적 프리팹 불러내기 필요
+            Enemy enemy = enemyGO.GetComponent<Enemy>();
+            enemies.Add(enemy);
+        }
+        
+        return enemies;
+    }
+
+    private void DungeonCleared(DungeonSO dungeonSO)
+    {
+        GiveReward(dungeonSO);
+        LevelUPDungeon(dungeonSO.name);
+    }
+
+    private void GiveReward(DungeonSO dungeonSO)
+    {
+        switch(dungeonSO.Type)
+        {
+            case DungeonType.Coin:
+                player.coin += dungeonSO.reward;
+                break;
+            case DungeonType.Exp:
+                player.experience += dungeonSO.reward;
+                break;
+            case DungeonType.Random: //지피티의 도움을 받았습니다...
+                if(UnityEngine.Random.value > 0.5f)
+                {
+                    player.coin += dungeonSO.reward;
+                }
+                else
+                {
+                    player.experience += dungeonSO.reward;
+                }
+                break;
         }
     }
 

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f322c15ca2d1540a011645b076c775, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  <GroundData>k__BackingField:
+    <BaseSpeed>k__BackingField: 5
+    <BaseRotationDamping>k__BackingField: 1
+    <WalkSpeedModifier>k__BackingField: 0.225
+  <AttackData>k__BackingField:
+    <AttackInfoDatas>k__BackingField:
+    - <ForceTransitionTime>k__BackingField: 0.1
+      <Force>k__BackingField: 1
+      Damage: 5
+      <Dealing_Start_TransitionTime>k__BackingField: 0.25
+      <Dealing_End_TransitionTime>k__BackingField: 0.35
+  <AttackInfoData>k__BackingField:
+    <ForceTransitionTime>k__BackingField: 0
+    <Force>k__BackingField: 0
+    Damage: 0
+    <Dealing_Start_TransitionTime>k__BackingField: 0
+    <Dealing_End_TransitionTime>k__BackingField: 0
+  <EnemyChasingRange>k__BackingField: 10
+  <AttackRange>k__BackingField: 4
+  <ProjectilePrefab>k__BackingField: {fileID: 0}
+  <ProjectileSpawnPosition>k__BackingField: {fileID: 0}
