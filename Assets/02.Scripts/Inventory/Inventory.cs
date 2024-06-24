@@ -22,6 +22,7 @@ public class Inventory : MonoBehaviour
         slots = GetComponentsInChildren<InventorySlot>();
         InitializeSlots();
         UpdateEmptyText();
+        gameObject.SetActive(false);
     }
 
     void InitializeSlots() // 모든 슬롯을 "가방이 비어있습니다"로 초기화
