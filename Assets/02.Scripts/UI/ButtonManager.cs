@@ -15,5 +15,9 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene("DungeonScene");
     }
 
-   
+    public void TestBtn()
+    {
+        SceneManager.LoadScene("Yuyerin");
+    }
+
 }
