@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public string[] itemNames;      // 아이템 이름 배열
     public string[] itemInfo;       // 아이템 설명 배열
     public Text emptyText;          // 인벤토리가 비어있을 때 표시하는 텍스트
+    public Player player;           // Player 추가
 
     private Dictionary<string, int> itemCounts = new Dictionary<string, int>(); // 아이템 이름을 키로 하고, 수량을 값으로 가지는 딕셔너리
 
@@ -28,6 +29,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].ClearSlot();
+            slots[i].characterStats = player; // 슬롯에 player의 CharacterStats 연결
         }
     }
 
