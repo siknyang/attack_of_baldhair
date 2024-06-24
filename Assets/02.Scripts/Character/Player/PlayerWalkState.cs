@@ -35,10 +35,13 @@ public class PlayerWalkState : PlayerBaseState
         }
     }
 
+    /*
     protected bool IsInAttackRange()
     {
         float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
 
         return enemyDistanceSqr <= stateMachine.Player.Data.AttackRange * stateMachine.Player.Data.AttackRange;
     }
+    */
+
 }

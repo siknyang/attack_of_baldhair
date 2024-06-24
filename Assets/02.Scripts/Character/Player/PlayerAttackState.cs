@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerAttackState : PlayerBaseState
 {
     private bool alreadyAppliedForce;
-    private bool alreadyThrownWeapon;
+    //private bool alreadyThrownWeapon;
 
     private AttackInfoData attackInfoData;
 
@@ -12,6 +12,7 @@ public class PlayerAttackState : PlayerBaseState
     public PlayerAttackState(PlayerStateMachine stateMachine, AttackInfoData attackInfoData) : base(stateMachine)
     {
         this.attackInfoData = attackInfoData;
+        //Animator animator = stateMachine.Player.Animator;
     }
 
     public override void Enter()
@@ -21,7 +22,7 @@ public class PlayerAttackState : PlayerBaseState
         StartAnimation(stateMachine.Player.AnimationData.JustAttackParameterHash);
 
         alreadyAppliedForce = false;
-        alreadyThrownWeapon = false;
+        //alreadyThrownWeapon = false;
 
         // 무기를 가지고 있는지 확인
         hasWeapon = stateMachine.Player.currentWeapon != null;
@@ -39,7 +40,7 @@ public class PlayerAttackState : PlayerBaseState
         base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
         StopAnimation(stateMachine.Player.AnimationData.JustAttackParameterHash);
-
+       // alreadyThrownWeapon = false;
     }
 
     public override void Update()
@@ -54,15 +55,21 @@ public class PlayerAttackState : PlayerBaseState
             if (normalizedTime >= attackInfoData.ForceTransitionTime)
                 TryApplyForce();
 
-            if (!alreadyThrownWeapon && normalizedTime >= stateMachine.Player.Data.AttackInfoData.Dealing_Start_TransitionTime)
-            {
-                ThrowWeapon();
-                alreadyThrownWeapon = true;
-            }
+            //if (!alreadyThrownWeapon && normalizedTime >= stateMachine.Player.Data.AttackInfoData.Dealing_Start_TransitionTime)
+            //{
+            //    ThrowWeapon();
+            //    alreadyThrownWeapon = true;
+            //}
         }
         else
         {
-            if (IsInChasingRange())
+            if (IsInAttackRange())
+            {
+                stateMachine.ChangeState(stateMachine.AttackState);
+                return;
+            }
+
+            else if (IsInChasingRange())
             {
                 stateMachine.ChangeState(stateMachine.WalkState);
                 return;
@@ -85,9 +92,11 @@ public class PlayerAttackState : PlayerBaseState
         stateMachine.Player.ForceReceiver.AddForce(stateMachine.Player.transform.forward * attackInfoData.Force);
     }
 
-    private void ThrowWeapon() // 무기 투척
+
+    /*
+    public void ThrowWeapon() // 무기 투척
     {
-        Debug.Log("ThrowWeapon");
+        Debug.Log("무기 투척 실행");
         GameObject weapon = stateMachine.Player.currentWeapon;
 
         if (weapon != null)
@@ -97,6 +106,7 @@ public class PlayerAttackState : PlayerBaseState
 
             // 무기를 플레이어의 손에서 분리
             weapon.transform.SetParent(null);
+            Debug.Log("분리");
 
             // 무기를 타겟 에너미 방향으로 던지기
             Rigidbody weaponRigidbody = weapon.GetComponent<Rigidbody>();
@@ -108,4 +118,7 @@ public class PlayerAttackState : PlayerBaseState
             stateMachine.Player.currentWeapon = null;
         }
     }
+    */
+
+
 }

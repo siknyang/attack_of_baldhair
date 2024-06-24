@@ -9,7 +9,7 @@ public class PlayerWeapon : MonoBehaviour
     private int damage;
     private float knockback;
 
-    private float destroyTime = 3f; // 무기를 제거할 시간
+    private float destroyTime = 3.0f; // 무기를 제거할 시간
     private bool hitEnemy = false; // 적을 맞췄는지 여부
 
     private List<Collider> alreadyColliderWith = new List<Collider>();

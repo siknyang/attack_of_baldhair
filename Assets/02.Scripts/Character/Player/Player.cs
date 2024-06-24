@@ -24,7 +24,7 @@ public class Player : CharacterStats
 
 
 
-    private PlayerStateMachine stateMachine;
+    public PlayerStateMachine stateMachine;
 
     public HealthSystem Health {  get; private set; }
 
@@ -64,6 +64,7 @@ public class Player : CharacterStats
     {
         if (WeaponPrefab != null)
         {
+            Debug.Log("무기 생성");
             currentWeapon = Instantiate(WeaponPrefab, SpawnPos.position, Quaternion.identity);
             currentWeapon.transform.SetParent(SpawnPos);
         }
@@ -72,6 +73,12 @@ public class Player : CharacterStats
     //public GameObject GetCurrentWeapon()
     //{
     //    return currentWeapon;
+    //}
+
+
+    //public void ThrowWeapon()
+    //{
+    //    Debug.Log("플레이어에서 무기투척");
     //}
 
     private void OnDie()
