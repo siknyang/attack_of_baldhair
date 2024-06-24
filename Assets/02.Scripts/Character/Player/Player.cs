@@ -28,7 +28,6 @@ public class Player : CharacterStats
 
     private void Awake()
     {
-        LoadData();     // 게임이 시작할 때 저장된 데이터 불러오기
 
         stateMachine = new PlayerStateMachine(this);
 
@@ -44,6 +43,7 @@ public class Player : CharacterStats
 
     private void Start()
     {
+        LoadData();     // 게임이 시작할 때 저장된 데이터 불러오기
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
     }
@@ -127,7 +127,7 @@ public class Player : CharacterStats
         data.experience = experience;
         data.coin = coin;
 
-        DataManager.instance.SaveData(data);
+        DataManager.Instance.SaveData(data);
     }
 
     private void OnApplicationQuit()    // 게임이 끝날 때 저장

@@ -87,7 +87,7 @@ public class Factory : MonoBehaviour
         data.nextLevel = nextLevel;
         data.currentCoins = currentCoins;
         data.upgradeCost = upgradeCost;
-        
+
         DataManager.Instance.SaveData(data);
     }
 
