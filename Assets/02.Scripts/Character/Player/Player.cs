@@ -12,7 +12,19 @@ public class Player : CharacterStats
     public CharacterController Controller { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
 
+
+
+    public GameObject WeaponPrefab; // 무기 프리팹
+    public Transform SpawnPos; // 무기 생성 위치
+    private GameObject currentWeapon; // 현재 손에 들고 있는 무기
+
+    [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
+
+
+
     private PlayerStateMachine stateMachine;
+
+    public HealthSystem Health {  get; private set; }
 
     private void Awake()
     {
@@ -25,11 +37,15 @@ public class Player : CharacterStats
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
+        Health = GetComponent<HealthSystem>();
+
+        SpawnWeapon(); // 무기 생성
     }
 
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
+        Health.OnDie += OnDie;
     }
 
     private void Update()
@@ -42,6 +58,39 @@ public class Player : CharacterStats
         stateMachine.PhysicsUpdate();
     }
 
+    public void SpawnWeapon()
+    {
+        if (WeaponPrefab != null)
+        {
+            currentWeapon = Instantiate(WeaponPrefab, SpawnPos.position, SpawnPos.localRotation);
+            currentWeapon.transform.SetParent(SpawnPos);
+        }
+    }
+
+    public GameObject GetCurrentWeapon()
+    {
+        return currentWeapon;
+    }
+
+    private void OnDie()
+    {
+        Animator.SetTrigger("Die");
+        enabled = false;
+    }
+
+    private void OnDrawGizmosSelected() // 플레이어의 타켓(에너미)공격/추적(감지) 범위 기즈모
+    {
+        if (Data == null) return;
+
+        // 공격 범위
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, Data.AttackRange); // 플레이어는 원거리 타입이라 에너미보다 공격 범위가 넓음
+
+        // 추적 범위
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, Data.EnemyChasingRange);
+    }
+
     private void LoadData()     // 불러온 데이터
     {
         UserData data = DataManager.Instance.LoadData<UserData>();
@@ -50,7 +99,7 @@ public class Player : CharacterStats
         {
             // 초기값 세팅
             level = 1;
-            health = 100;
+            //health = 100;
             attackPower = 10;
             attackSpeed = 1.0f;
             moveSpeed = 1.0f;

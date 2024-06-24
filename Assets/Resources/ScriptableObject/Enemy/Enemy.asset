@@ -17,9 +17,9 @@ MonoBehaviour:
   <ForceTransitionTime>k__BackingField: 0.1
   <Force>k__BackingField: 1
   Damage: 10
-  <Dealing_Start_TransitionTime>k__BackingField: 0
-  <Dealing_End_TransitionTime>k__BackingField: 0
-  <PlayerData>k__BackingField:
+  <Dealing_Start_TransitionTime>k__BackingField: 0.25
+  <Dealing_End_TransitionTime>k__BackingField: 0.35
+  <GroundData>k__BackingField:
     <BaseSpeed>k__BackingField: 5
     <BaseRotationDamping>k__BackingField: 1
     <WalkSpeedModifier>k__BackingField: 0.225

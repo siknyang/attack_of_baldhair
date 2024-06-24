@@ -23,7 +23,7 @@ public class PlayerAttackData
 }
 
 [Serializable]
-public class AttackInfoData
+public class AttackInfoData // 개별 공격 세부 정보 저장
 {
     [field: SerializeField][field: Range(0f, 3f)] public float ForceTransitionTime { get; private set; }// 공격했을 때 댐핑
     [field: SerializeField][field: Range(-10f, 10f)] public float Force { get; private set; }
@@ -41,7 +41,9 @@ public class PlayerSO : ScriptableObject
     [field: SerializeField] public PlayerAttackData AttackData { get; private set; }
     [field: SerializeField] public AttackInfoData AttackInfoData { get; private set; }
 
-
     [field: SerializeField] public float EnemyChasingRange { get; private set; } = 10f;
-    [field: SerializeField] public float AttackRange { get; private set; } = 1.5f;
+    [field: SerializeField] public float AttackRange { get; private set; } = 3.0f;
+
+    [field: SerializeField] public GameObject ProjectilePrefab { get; private set; } // 원거리 무기 프리팹
+    [field: SerializeField] public Transform ProjectileSpawnPosition { get; private set; } // 무기 스폰 위치
 }

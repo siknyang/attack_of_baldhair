@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; }
-    public GameObject Target { get; private set; }
+    public HealthSystem Target { get; private set; }
     public PlayerIdleState IdleState { get; }
     public PlayerWalkState WalkState { get; }
     public PlayerAttackState AttackState { get; }
@@ -17,7 +17,7 @@ public class PlayerStateMachine : StateMachine
     public PlayerStateMachine(Player player)
     {
         this.Player = player;
-        Target = GameObject.FindGameObjectWithTag("Enemy");
+        Target = GameObject.FindGameObjectWithTag("Enemy").GetComponent<HealthSystem>();
 
         IdleState = new PlayerIdleState(this);
         WalkState = new PlayerWalkState(this);
