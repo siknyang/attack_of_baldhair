@@ -10,7 +10,7 @@ public class Factory : MonoBehaviour
     public int currentLevel { get => data.currentLevel; set => data.currentLevel = value; }     // 현재 레벨
     public int nextLevel { get => data.nextLevel; set => data.nextLevel = value; }      // 다음 레벨
     public int currentCoins { get => data.currentCoins; set => data.currentCoins = value; }     // 현재 가지고있는 코인
-    public int coinsPerSec = 100;    // 1초에 생성되는 코인 (1초당 100코인)
+    public int coinsPerSec = 10000;    // 1초에 생성되는 코인 (1초당 100코인)
     public int upgradeCost { get => data.upgradeCost; set => data.upgradeCost = value; }    // 다음 레벨로 가기위해 필요한 코인
 
     public Text currentLevelText;
