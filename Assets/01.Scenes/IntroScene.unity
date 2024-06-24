@@ -600,8 +600,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1037851815}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: StartBtn
+        m_TargetAssemblyTypeName: IntroSceneManager, Assembly-CSharp
+        m_MethodName: OnStartButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -658,9 +658,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1037851809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f348956d459b69e4ca1f2e3a37d0176a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d4e3ff9b55b5444594642b252d08578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nicknameInputField: {fileID: 1313204892}
 --- !u!1 &1189110364
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +782,7 @@ GameObject:
   - component: {fileID: 1313204894}
   - component: {fileID: 1313204893}
   - component: {fileID: 1313204892}
+  - component: {fileID: 1313204895}
   m_Layer: 5
   m_Name: EnterName
   m_TagString: Untagged
@@ -915,6 +917,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313204890}
   m_CullTransparentMesh: 1
+--- !u!114 &1313204895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313204890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4e3ff9b55b5444594642b252d08578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nicknameInputField: {fileID: 1313204892}
 --- !u!1 &1451386988
 GameObject:
   m_ObjectHideFlags: 0
