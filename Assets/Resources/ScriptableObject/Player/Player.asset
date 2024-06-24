@@ -26,7 +26,7 @@ MonoBehaviour:
   <AttackInfoData>k__BackingField:
     <ForceTransitionTime>k__BackingField: 0
     <Force>k__BackingField: 0
-    Damage: 0
+    Damage: 10
     <Dealing_Start_TransitionTime>k__BackingField: 0
     <Dealing_End_TransitionTime>k__BackingField: 0
   <EnemyChasingRange>k__BackingField: 10

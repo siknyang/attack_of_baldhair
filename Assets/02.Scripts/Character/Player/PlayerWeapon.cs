@@ -6,7 +6,7 @@ public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private Collider myCollider;
 
-    private int damage;
+    public int damage;
     private float knockback;
 
     private float destroyTime = 3.0f; // 무기를 제거할 시간
@@ -37,6 +37,8 @@ public class PlayerWeapon : MonoBehaviour
         {
             health.TakeDamage(damage);
             hitEnemy = true; // 적을 맞췄음을 표시
+            Debug.Log("에너미한테 공격 성공");
+            Destroy(gameObject);
         }
 
         if (other.TryGetComponent(out ForceReceiver forceReceiver))

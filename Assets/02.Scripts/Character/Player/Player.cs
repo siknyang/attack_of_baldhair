@@ -16,13 +16,10 @@ public class Player : CharacterStats
 
     public GameObject WeaponPrefab; // 무기 프리팹
     public Transform SpawnPos; // 무기 생성 위치
-    //public Transform WeaponPos;
 
     public GameObject currentWeapon; // 현재 손에 들고 있는 무기
 
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
-
-
 
     public PlayerStateMachine stateMachine;
 
@@ -40,8 +37,6 @@ public class Player : CharacterStats
         Controller = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
         Health = GetComponent<HealthSystem>();
-
-        SpawnWeapon(); // 무기 생성
     }
 
     private void Start()
@@ -64,22 +59,11 @@ public class Player : CharacterStats
     {
         if (WeaponPrefab != null)
         {
-            Debug.Log("무기 생성");
             currentWeapon = Instantiate(WeaponPrefab, SpawnPos.position, Quaternion.identity);
+            currentWeapon.GetComponent<PlayerWeapon>().damage = Data.AttackInfoData.Damage;
             currentWeapon.transform.SetParent(SpawnPos);
         }
     }
-
-    //public GameObject GetCurrentWeapon()
-    //{
-    //    return currentWeapon;
-    //}
-
-
-    //public void ThrowWeapon()
-    //{
-    //    Debug.Log("플레이어에서 무기투척");
-    //}
 
     private void OnDie()
     {

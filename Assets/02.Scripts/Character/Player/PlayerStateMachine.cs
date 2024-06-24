@@ -29,4 +29,13 @@ public class PlayerStateMachine : StateMachine
         RotationDamping = player.Data.GroundData.BaseRotationDamping;
     }
 
+    public void ClearTarget()
+    {
+        Target = null;
+    }
+
+    public void SetTarget(HealthSystem obj)
+    {
+        Target = obj;
+    }
 }

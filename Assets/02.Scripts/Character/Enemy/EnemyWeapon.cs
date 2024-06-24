@@ -6,7 +6,7 @@ public class EnemyWeapon : MonoBehaviour
 {
     [SerializeField] private Collider myCollider;
 
-    private int damage;
+    public int damage;
     private float knockback;
 
     private List<Collider> alreadyColliderWith = new List<Collider>();
@@ -15,6 +15,7 @@ public class EnemyWeapon : MonoBehaviour
     {
         alreadyColliderWith.Clear();
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,6 +27,7 @@ public class EnemyWeapon : MonoBehaviour
         if (other.TryGetComponent(out HealthSystem health))
         {
             health.TakeDamage(damage);
+            Debug.Log("플레이어한테 공격 성공");
         }
 
         if (other.TryGetComponent(out ForceReceiver forceReceiver))

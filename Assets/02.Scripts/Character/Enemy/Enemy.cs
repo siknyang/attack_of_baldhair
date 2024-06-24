@@ -41,6 +41,8 @@ public class Enemy : CharacterStats
     {
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
+
+        Weapon.damage = Data.Damage;
     }
 
     private void Update()
@@ -57,6 +59,9 @@ public class Enemy : CharacterStats
     {
         Animator.SetTrigger("Die");
         enabled = false;
+        //FindObjectOfType<Player>().stateMachine.ClearTarget();
+        // 죽고 새로운 에너미 생성해서 걔를 새로운 플레이어의 타켓으로 만들기
+        
     }
 
     private void OnDrawGizmosSelected()// 에너미의 타켓(플레이어)공격/추적(감지) 범위 기즈모

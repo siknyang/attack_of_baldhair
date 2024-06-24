@@ -26,6 +26,5 @@ public class HealthSystem : MonoBehaviour
             IsDie = true;
             OnDie?.Invoke();
         }
-        Debug.Log(health);
     }
 }

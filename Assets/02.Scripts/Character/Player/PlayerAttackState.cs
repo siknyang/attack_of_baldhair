@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerAttackState : PlayerBaseState
 {
     private bool alreadyAppliedForce;
-    //private bool alreadyThrownWeapon;
+    private bool alreadyShooting;
 
     private AttackInfoData attackInfoData;
 
@@ -12,7 +12,6 @@ public class PlayerAttackState : PlayerBaseState
     public PlayerAttackState(PlayerStateMachine stateMachine, AttackInfoData attackInfoData) : base(stateMachine)
     {
         this.attackInfoData = attackInfoData;
-        //Animator animator = stateMachine.Player.Animator;
     }
 
     public override void Enter()
@@ -22,17 +21,8 @@ public class PlayerAttackState : PlayerBaseState
         StartAnimation(stateMachine.Player.AnimationData.JustAttackParameterHash);
 
         alreadyAppliedForce = false;
-        //alreadyThrownWeapon = false;
+        alreadyShooting = false;
 
-        // 무기를 가지고 있는지 확인
-        hasWeapon = stateMachine.Player.currentWeapon != null;
-
-
-        if (!hasWeapon)
-        {
-            // 무기가 없으면 생성
-            stateMachine.Player.SpawnWeapon();
-        }
     }
 
     public override void Exit()
@@ -40,7 +30,7 @@ public class PlayerAttackState : PlayerBaseState
         base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
         StopAnimation(stateMachine.Player.AnimationData.JustAttackParameterHash);
-       // alreadyThrownWeapon = false;
+       // alreadyShooting = false;
     }
 
     public override void Update()
@@ -55,11 +45,11 @@ public class PlayerAttackState : PlayerBaseState
             if (normalizedTime >= attackInfoData.ForceTransitionTime)
                 TryApplyForce();
 
-            //if (!alreadyThrownWeapon && normalizedTime >= stateMachine.Player.Data.AttackInfoData.Dealing_Start_TransitionTime)
-            //{
-            //    ThrowWeapon();
-            //    alreadyThrownWeapon = true;
-            //}
+            if (!alreadyShooting && normalizedTime >= stateMachine.Player.Data.AttackInfoData.Dealing_Start_TransitionTime)
+            {
+                Shooting();
+                //alreadyShooting = true;
+            }
         }
         else
         {
@@ -93,10 +83,20 @@ public class PlayerAttackState : PlayerBaseState
     }
 
 
-    /*
-    public void ThrowWeapon() // 무기 투척
+    
+    public void Shooting() // 무기(가발) 발사
     {
-        Debug.Log("무기 투척 실행");
+        Debug.Log("슈팅 실행");
+
+        // 무기를 가지고 있는지 확인
+        hasWeapon = stateMachine.Player.currentWeapon != null;
+
+        if (!hasWeapon)
+        {
+            // 무기가 없으면 생성
+            stateMachine.Player.SpawnWeapon();
+        }
+
         GameObject weapon = stateMachine.Player.currentWeapon;
 
         if (weapon != null)
@@ -104,21 +104,20 @@ public class PlayerAttackState : PlayerBaseState
             // 타겟 에너미 위치 가져오기
             Vector3 targetPosition = stateMachine.Target.transform.position;
 
-            // 무기를 플레이어의 손에서 분리
+            // 무기를 플레이어에서 분리
             weapon.transform.SetParent(null);
-            Debug.Log("분리");
 
-            // 무기를 타겟 에너미 방향으로 던지기
+            // 무기를 타겟 에너미 방향으로 발사
             Rigidbody weaponRigidbody = weapon.GetComponent<Rigidbody>();
-            Vector3 throwDirection = (targetPosition - weapon.transform.position).normalized;
-            float throwForce = 5f; // 던지는 힘
-            weaponRigidbody.velocity = throwDirection * throwForce;
+            Vector3 shootDirection = (targetPosition - weapon.transform.position).normalized;
+            float shootForce = 10f;
+            weaponRigidbody.velocity = shootDirection * shootForce;
             //weaponRigidbody.AddForce(throwDirection *  throwForce, ForceMode.Impulse);
 
             stateMachine.Player.currentWeapon = null;
         }
     }
-    */
+    
 
 
 }
