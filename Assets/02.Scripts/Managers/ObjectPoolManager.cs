@@ -7,7 +7,7 @@ interface IInfinite     // 계속해서 스폰
     IEnumerator SpawnObject();
 }
 
-public class ObjectPoolManager : MonoBehaviour
+public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
     [System.Serializable]
     public class Pool
@@ -24,8 +24,9 @@ public class ObjectPoolManager : MonoBehaviour
 
     protected virtual void Start()
     {
+        
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
-        InitializePool();
+        Instance.InitializePool();
     }
 
     public virtual void InitializePool()
@@ -53,8 +54,8 @@ public class ObjectPoolManager : MonoBehaviour
         }
 
         GameObject obj = poolDictionary[tag].Dequeue();    // 사용하려고 큐에서 뺌
-        obj.SetActive(true);
         obj.transform.position = pos;
+        obj.SetActive(true);
         poolDictionary[tag].Enqueue(obj);    // 사용이 끝나서 큐에 다시 넣음
         return obj;
     }
