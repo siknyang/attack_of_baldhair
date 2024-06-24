@@ -17,7 +17,7 @@ public class ShopItem : MonoBehaviour
     private string itemInfoValue;
     private int itemPriceValue;
     private Sprite itemImageValue;
-    private Inventory inventory;
+    private Inventory inventory;    // 인벤토리 참조
 
     // 아이템 초기화
     public void Initialize(string name, string info, int price, Sprite image, Inventory inventory)
@@ -39,6 +39,8 @@ public class ShopItem : MonoBehaviour
     private void BuyItem()
     {
         inventory.AddItem(itemNameValue, itemInfoValue, itemImageValue);
+        Debug.Log($"Item bought: {itemNameValue}, {itemInfoValue}");
         // 상점에서 구매버튼을 누르면 인벤토리에 아이템을 추가
+        // 아이템을 인벤토리에 추가할때마다 해당 아이템 수 증가
     }
 }

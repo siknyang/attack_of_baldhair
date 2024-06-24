@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public ShopItem[] shopItems;
-    public Inventory inventory;
+    public ShopItem[] shopItems;    // 상점 아이템 배열
+    public Inventory inventory;     // 인벤토리 참조
 
-    public string[] itemNames;
-    public string[] itemInfo;
-    public int[] itemPrices;
-    public Sprite[] itemImages;
+    public string[] itemNames;      // 아이템 이름 배열
+    public string[] itemInfo;       // 아이템 정보 배열
+    public int[] itemPrices;        // 아이템 가격 배열
+    public Sprite[] itemImages;     // 아이템 이미지 배열
 
     void Start()
     {
-        InitializeShop();   
+        InitializeShop();   // 상점 초기화
     }
 
     void InitializeShop()

@@ -10,17 +10,45 @@ public class InventorySlot : MonoBehaviour
     public Image itemImage;
     public Text itemName;
     public Text itemInfo;
-
+    public Text itemCount; // 아이템 수량표시 추가★
     public Button equipButton;
     private bool isEquipped = false; // 현재 아이템 장착 상태
     // false = 해제된 상태, true = 장착된 상태
 
+    public CharacterStats characterStats; // 캐릭터 스탯 클래스
+
     void Start()
     {
-        equipButton.onClick.AddListener(ToggleEquip);
-        // 장착버튼에 클릭 이벤트로 추가
-
+        if (equipButton != null)
+        {
+            equipButton.onClick.AddListener(ToggleEquip);
+            // 장착버튼에 클릭 이벤트로 추가
+        }
         // UpdateButton(); // 여기서도 업데이트를 해줘야되나...
+    }
+
+    public void InitializeSlot(Sprite image, string name, string info)
+    {
+        itemImage.sprite = image;
+        itemName.text = name;
+        itemInfo.text = info;
+        itemCount.text = "0";
+        gameObject.SetActive(true); // 슬롯 활성화
+        // Debug.Log($"Slot initialized: {name}, {info}");
+    }
+
+    public void ClearSlot()
+    {
+        itemImage.sprite = null;
+        itemName.text = "가방이 비어있습니다";
+        itemInfo.text = "아이템을 구매하세요";
+        itemCount.text = "0";
+        gameObject.SetActive(true);
+    }
+
+    public void UpdateItemCount(int count)
+    {
+        itemCount.text = count.ToString();
     }
 
     void ToggleEquip()
@@ -47,10 +75,18 @@ public class InventorySlot : MonoBehaviour
     void EquipItem()
     {
         // 아이템 장착 로직 추가
+        if (characterStats != null)
+        {
+            characterStats.IncreaseStats(itemName.text);
+        }
     }
 
     void UnequipItem()
     {
         // 아이템 해제 로직 추가
+        if (characterStats != null)
+        {
+            characterStats.DecreaseStats(itemName.text);
+        }
     }
 }
