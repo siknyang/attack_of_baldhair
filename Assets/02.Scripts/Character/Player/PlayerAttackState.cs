@@ -24,7 +24,8 @@ public class PlayerAttackState : PlayerBaseState
         alreadyThrownWeapon = false;
 
         // 무기를 가지고 있는지 확인
-        hasWeapon = stateMachine.Player.GetCurrentWeapon() != null;
+        hasWeapon = stateMachine.Player.currentWeapon != null;
+
 
         if (!hasWeapon)
         {
@@ -86,12 +87,16 @@ public class PlayerAttackState : PlayerBaseState
 
     private void ThrowWeapon() // 무기 투척
     {
-        GameObject weapon = stateMachine.Player.GetCurrentWeapon();
+        Debug.Log("ThrowWeapon");
+        GameObject weapon = stateMachine.Player.currentWeapon;
 
         if (weapon != null)
         {
             // 타겟 에너미 위치 가져오기
             Vector3 targetPosition = stateMachine.Target.transform.position;
+
+            // 무기를 플레이어의 손에서 분리
+            weapon.transform.SetParent(null);
 
             // 무기를 타겟 에너미 방향으로 던지기
             Rigidbody weaponRigidbody = weapon.GetComponent<Rigidbody>();
@@ -100,8 +105,7 @@ public class PlayerAttackState : PlayerBaseState
             weaponRigidbody.velocity = throwDirection * throwForce;
             //weaponRigidbody.AddForce(throwDirection *  throwForce, ForceMode.Impulse);
 
-            // 무기를 플레이어의 손에서 분리??
-            weapon.transform.SetParent(null);
+            stateMachine.Player.currentWeapon = null;
         }
     }
 }

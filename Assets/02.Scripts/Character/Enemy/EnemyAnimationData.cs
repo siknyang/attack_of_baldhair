@@ -24,7 +24,7 @@ public class EnemyAnimationData
         GroundParameterHash = Animator.StringToHash(groundParameterName);
         IdleParameterHash = Animator.StringToHash(idleParameterName);
         RunParameterHash = Animator.StringToHash(runParameterName);
-        AttackParameterHash = Animator.StringToHash(attackParameterName);
+        AttackParameterHash = Animator.StringToHash("@Attack");
         BaseAttackParameterHash = Animator.StringToHash(baseAttackParameterName);
     }
 }

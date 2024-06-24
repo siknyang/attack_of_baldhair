@@ -16,7 +16,9 @@ public class Player : CharacterStats
 
     public GameObject WeaponPrefab; // 무기 프리팹
     public Transform SpawnPos; // 무기 생성 위치
-    private GameObject currentWeapon; // 현재 손에 들고 있는 무기
+    //public Transform WeaponPos;
+
+    public GameObject currentWeapon; // 현재 손에 들고 있는 무기
 
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
 
@@ -62,15 +64,15 @@ public class Player : CharacterStats
     {
         if (WeaponPrefab != null)
         {
-            currentWeapon = Instantiate(WeaponPrefab, SpawnPos.position, SpawnPos.localRotation);
+            currentWeapon = Instantiate(WeaponPrefab, SpawnPos.position, Quaternion.identity);
             currentWeapon.transform.SetParent(SpawnPos);
         }
     }
 
-    public GameObject GetCurrentWeapon()
-    {
-        return currentWeapon;
-    }
+    //public GameObject GetCurrentWeapon()
+    //{
+    //    return currentWeapon;
+    //}
 
     private void OnDie()
     {

@@ -26,7 +26,7 @@ public class PlayerAnimationData
         GroundParameterHash = Animator.StringToHash(groundParameterName);
         IdleParameterHash = Animator.StringToHash(idleParameterName);
         WalkParameterHash = Animator.StringToHash(walkParameterName);
-        AttackParameterHash = Animator.StringToHash(attackParameterName);
+        AttackParameterHash = Animator.StringToHash("@Attack");
         JustAttackParameterHash = Animator.StringToHash(justAttackParameterName);
         //BaseAttackParameterHash = Animator.StringToHash(baseAttackParameterName);
 
