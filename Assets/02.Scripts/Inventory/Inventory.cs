@@ -93,4 +93,16 @@ public class Inventory : MonoBehaviour
         player.EquipInventoryItem(item);
         Debug.Log($"¾ÆÀÌÅÛ ÀåÂø : {item.itemName}");
     }
+
+    public bool UseItem(string itemName)
+    {
+        if (itemCounts.ContainsKey(itemName) && itemCounts[itemName] > 0)
+        {
+            itemCounts[itemName]--;
+            UpdateItemCount(itemName);
+            UpdateEmptyText();
+            return true;
+        }
+        return false;
+    }
 }
