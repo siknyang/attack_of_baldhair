@@ -16,61 +16,50 @@ public class CharacterStats : MonoBehaviour
     public float experience { get => data.experience; set => data.experience = value; }
     public int coin { get => data.coin; set => data.coin = value; }
 
-    public void IncreaseAttackSpeed(float amount)
+    
+    // 아이템 장착 시 스탯 증가
+    public void IncreaseStats(string itemName)
     {
-        attackSpeed += amount;
-        Debug.Log($"공격 속도 증가 : {attackSpeed}");
+        switch (itemName)
+        {
+            case "아이템1":
+                attackPower += 10;
+                break;
+
+            case "아이템2":
+                attackPower += 10;
+                break;
+
+            case "아이템3":
+                attackPower += 10;
+                break;
+
+            default:
+                break;
+        }
     }
 
-    public void IncreaseAttackPower(float amount)
+    // 아이템 해제 시 스탯 감소
+    public void DecreaseStats(string itemName)
     {
-        attackPower += amount;
-        Debug.Log($"공격력 증가 : {attackPower}");
+        switch (itemName)
+        {
+            case "아이템1":
+                attackPower -= 10;
+                break;
+
+            case "아이템2":
+                attackPower -= 10;
+                break;
+
+            case "아이템3":
+                attackPower -= 10;
+                break;
+
+            default:
+                break;
+        }
     }
-
-    //// 아이템 장착 시 스탯 증가
-    //public void IncreaseStats(string itemName)
-    //{
-    //    switch (itemName)
-    //    {
-    //        case "아이템1":
-    //            attackPower += 10;
-    //            break;
-
-    //        case "아이템2":
-    //            attackPower += 10;
-    //            break;
-
-    //        case "아이템3":
-    //            attackPower += 10;
-    //            break;
-
-    //        default:
-    //            break;
-    //    }
-    //}
-
-    //// 아이템 해제 시 스탯 감소
-    //public void DecreaseStats(string itemName)
-    //{
-    //    switch (itemName)
-    //    {
-    //        case "아이템1":
-    //            attackPower -= 10;
-    //            break;
-
-    //        case "아이템2":
-    //            attackPower -= 10;
-    //            break;
-
-    //        case "아이템3":
-    //            attackPower -= 10;
-    //            break;
-
-    //        default:
-    //            break;
-    //    }
-    //}
 
 }
 
