@@ -21,7 +21,14 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < shopItems.Length; i++)
         {
-            shopItems[i].Initialize(itemNames[i], itemInfo[i], itemPrices[i], itemImages[i], inventory);
+            if (i < itemNames.Length && i < itemInfo.Length && i < itemPrices.Length && i< itemImages.Length)
+            {
+                shopItems[i].Initialize(itemNames[i], itemInfo[i], itemPrices[i], itemImages[i], inventory);
+            }
+            else
+            {
+                Debug.Log("아이템 배열 일치X");
+            }
         }
     }
 }

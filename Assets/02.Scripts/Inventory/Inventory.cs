@@ -49,7 +49,6 @@ public class Inventory : MonoBehaviour
                 if (slots[i].itemName.text == "가방이 비어있습니다")
                 {
                     slots[i].InitializeSlot(image, name, info);
-                    Debug.Log($"Item added : {name} {info}");
                     break;
                 }
             }

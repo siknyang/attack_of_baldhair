@@ -22,6 +22,9 @@ public class Enemy : CharacterStats
 
     private Coroutine deathCoroutine;
 
+    [SerializeField] private GameObject hairActivate; // 활성화할 머리
+    private Renderer[] renderers;
+
     private void Awake()
     {
         health = 50;
@@ -37,6 +40,8 @@ public class Enemy : CharacterStats
         ForceReceiver = GetComponent<ForceReceiver>();
         Health = GetComponent<HealthSystem>();
 
+        renderers = GetComponentsInChildren<Renderer>();
+
         stateMachine = new EnemyStateMachine(this);
     }
 
@@ -44,7 +49,8 @@ public class Enemy : CharacterStats
     {
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
-
+        Health.OnTakeDamage += OnTakeDamage;
+        Health.IsEnemy = true;
         Weapon.damage = Data.Damage;
     }
 
@@ -60,6 +66,11 @@ public class Enemy : CharacterStats
 
     private void OnDie()
     {
+        if (hairActivate != null)
+        {
+            hairActivate.SetActive(true);
+        }
+
         Controller.enabled = false; // 다시 사용할 땐 true로 바꿔줘야 함
         Animator.SetTrigger("Die");
         enabled = false;
@@ -88,6 +99,29 @@ public class Enemy : CharacterStats
         if (deathCoroutine != null)
         {
             StopCoroutine(deathCoroutine);
+        }
+    }
+
+    private void OnTakeDamage()
+    {
+        StartCoroutine(BlinkEffect());
+    }
+
+    private IEnumerator BlinkEffect()// 공격당할 때마다 블링크
+    {
+        Color originalColor = renderers[0].material.color;
+        Color blinkColor = new Color(1f, 0.5f, 0.5f, 0.4f);
+
+        foreach (var renderer in renderers)
+        {
+            renderer.material.color = blinkColor;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        foreach (var renderer in renderers)
+        {
+            renderer.material.color = originalColor;
         }
     }
 
