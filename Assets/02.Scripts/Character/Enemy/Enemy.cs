@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 
 public class Enemy : CharacterStats
@@ -80,7 +81,6 @@ public class Enemy : CharacterStats
 
         // 타겟에서 삭제
         FindObjectOfType<Player>().stateMachine.RemoveTarget(Health);
-
         // 3초 후에 자동으로 오브젝트 삭제 코루틴 시작
         deathCoroutine = StartCoroutine(DestroyAfterDelay(3f));
     }
@@ -89,8 +89,16 @@ public class Enemy : CharacterStats
     {
         yield return new WaitForSeconds(delay);
 
-        // 오브젝트를 파괴
-        Destroy(gameObject);
+        // 오브젝트 풀로 다시 넣음
+        ObjectPoolManager.Instance.ReturnToPool(gameObject, "Enemy");
+
+        // 죽은 적들 초기화
+        enabled = true;
+        Controller.enabled = true;
+        hairActivate.SetActive(false);
+        Animator.ResetTrigger("Die");
+        Health.ResetHealth();
+        Health.IsDie = false;
     }
 
     private void OnDestroy()
