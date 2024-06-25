@@ -61,7 +61,9 @@ public class Enemy : CharacterStats
         enabled = false;
         //FindObjectOfType<Player>().stateMachine.ClearTarget();
         // 죽고 새로운 에너미 생성해서 걔를 새로운 플레이어의 타켓으로 만들기
-        
+
+        // 플레이어에게 경험치 부여
+        FindObjectOfType<Player>().AddExperience(experience);
     }
 
     private void OnDrawGizmosSelected()// 에너미의 타켓(플레이어)공격/추적(감지) 범위 기즈모
