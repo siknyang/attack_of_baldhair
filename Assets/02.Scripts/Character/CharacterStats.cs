@@ -16,7 +16,7 @@ public class CharacterStats : MonoBehaviour
     public float experience { get => data.experience; set => data.experience = value; }
     public int coin { get => data.coin; set => data.coin = value; }
 
-
+    
     // 아이템 장착 시 스탯 증가
     public void IncreaseStats(string itemName)
     {

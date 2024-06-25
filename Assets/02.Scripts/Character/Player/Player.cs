@@ -12,8 +12,6 @@ public class Player : CharacterStats
     public CharacterController Controller { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
 
-
-
     public GameObject WeaponPrefab; // 무기 프리팹
     public Transform SpawnPos; // 무기 생성 위치
 
@@ -24,6 +22,8 @@ public class Player : CharacterStats
     public PlayerStateMachine stateMachine;
 
     public HealthSystem Health {  get; private set; }
+
+    public float experienceToNextLevel = 100f; // 레벨업에 필요한 기본 경험치
 
     private void Awake()
     {
@@ -59,11 +59,35 @@ public class Player : CharacterStats
     {
         if (WeaponPrefab != null)
         {
+            Debug.Log("무기 생성");
             currentWeapon = Instantiate(WeaponPrefab, SpawnPos.position, Quaternion.identity);
             currentWeapon.GetComponent<PlayerWeapon>().damage = Data.AttackInfoData.Damage;
             currentWeapon.transform.SetParent(SpawnPos);
         }
     }
+
+    public void AddExperience(float xp)
+    {
+        experience += xp;
+        Debug.Log("플레이어 경험치 획득 : " + experience);
+
+        while (experience >= experienceToNextLevel)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        experience -= experienceToNextLevel;
+        experienceToNextLevel = Mathf.RoundToInt(experienceToNextLevel * 1.25f); // 다음 레벨업에 필요한 경험치 증가
+        attackPower += 2; // 레벨업 시 공격력 증가
+        attackSpeed += 0.1f; // 레벨업 시 공격 속도 증가
+
+        Debug.Log("현재 플레이어 레벨: " + level);
+    }
+
 
     private void OnDie()
     {
