@@ -9,18 +9,20 @@ public class EnemyObjectPool : MonoBehaviour, IRandomPosition
     private void Start()
     {
         objectPoolManager = ObjectPoolManager.Instance;
-        //int poolSize = objectPoolManager.GetPoolSize("Enemy");
+        int poolSize = objectPoolManager.GetPoolSize("Enemy");
+        SpawnEnemy(poolSize);
     }
 
-    private void Update()
-    {
-        SpawnEnemy();
-    }
+        // 불러오고 싶은 만큼만 불러오기
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(int poolSize)
     {
-        Vector3 spawnPos = GetRandomPosition();
-        objectPoolManager.SpawnFromPool("Enemy", spawnPos);
+        for (int i =0 ; i < poolSize; i++)
+        {
+            Vector3 spawnPos = GetRandomPosition();
+            objectPoolManager.SpawnFromPool("Enemy", spawnPos);
+        }
+
     }
 
     public Vector3 GetRandomPosition()

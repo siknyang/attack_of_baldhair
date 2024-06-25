@@ -22,7 +22,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     public List<Pool> pools = new List<Pool>();
     Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    void Start()
+    void Awake()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         Instance.InitializePool();
