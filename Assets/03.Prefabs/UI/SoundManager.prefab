@@ -99,13 +99,13 @@ MonoBehaviour:
   hover: {fileID: 8300000, guid: 35cf7766e9e2aa542811e896fde57989, type: 3}
   denied: {fileID: 8300000, guid: 1ed8fb76fc64e4e46847348138782234, type: 3}
   unequip: {fileID: 8300000, guid: 78ad99fd0a0a5144280b07bbdba84815, type: 3}
-  confirm: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
+  buySell: {fileID: 8300000, guid: abdbbfd33a46f4549987385f85c536b5, type: 3}
   hit: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
   teleport: {fileID: 8300000, guid: 8ff2a2d7e79f81c40ac447512f879374, type: 3}
   cannon: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
   magic: {fileID: 8300000, guid: b1b9c1f0ea1fcae439ed1a4d44ff05fd, type: 3}
   bgmSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
+  sfxToggle: {fileID: 0}
 --- !u!82 &3437844420034800147
 AudioSource:
   m_ObjectHideFlags: 0
