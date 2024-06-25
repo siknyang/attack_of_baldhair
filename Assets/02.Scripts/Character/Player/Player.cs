@@ -12,8 +12,6 @@ public class Player : CharacterStats
     public CharacterController Controller { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
 
-
-
     public GameObject WeaponPrefab; // 무기 프리팹
     public Transform SpawnPos; // 무기 생성 위치
 
@@ -26,7 +24,6 @@ public class Player : CharacterStats
     public HealthSystem Health {  get; private set; }
 
     public float experienceToNextLevel = 100f; // 레벨업에 필요한 기본 경험치
-
 
     private void Awake()
     {
@@ -62,6 +59,7 @@ public class Player : CharacterStats
     {
         if (WeaponPrefab != null)
         {
+            Debug.Log("무기 생성");
             currentWeapon = Instantiate(WeaponPrefab, SpawnPos.position, Quaternion.identity);
             currentWeapon.GetComponent<PlayerWeapon>().damage = Data.AttackInfoData.Damage;
             currentWeapon.transform.SetParent(SpawnPos);

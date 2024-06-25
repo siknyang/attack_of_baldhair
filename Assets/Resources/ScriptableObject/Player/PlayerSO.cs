@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerGroundData
 {
     [field: SerializeField][field: Range(0f, 25f)] public float BaseSpeed { get; private set; } = 5f;
-    [field: SerializeField][field: Range(0f, 25f)] public float BaseRotationDamping { get; private set; } = 1f;
+    [field: SerializeField][field: Range(0f, 25f)] public float BaseRotationDamping { get; private set; } = 2f;
 
     [field: Header("WalkData")]
     [field: SerializeField][field: Range(0f, 2f)] public float WalkSpeedModifier { get; private set; } = 0.225f;
@@ -42,7 +42,7 @@ public class PlayerSO : ScriptableObject
     [field: SerializeField] public AttackInfoData AttackInfoData { get; private set; }
 
     [field: SerializeField] public float EnemyChasingRange { get; private set; } = 10f;
-    [field: SerializeField] public float AttackRange { get; private set; } = 3.0f;
+    [field: SerializeField] public float AttackRange { get; private set; } = 5.0f;
 
     [field: SerializeField] public GameObject ProjectilePrefab { get; private set; } // 원거리 무기 프리팹
     [field: SerializeField] public Transform ProjectileSpawnPosition { get; private set; } // 무기 스폰 위치

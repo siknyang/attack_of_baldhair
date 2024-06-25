@@ -6,6 +6,7 @@ public class WeaponHandler : MonoBehaviour
 {
     public Player player;
 
+    /*
     public void ThrowWeapon() // 公扁 捧么
     {
         Debug.Log("公扁 捧么 角青");
@@ -30,4 +31,6 @@ public class WeaponHandler : MonoBehaviour
             player.currentWeapon = null;
         }
     }
+    */
+
 }
