@@ -6,30 +6,62 @@ public class EnemyObjectPool : MonoBehaviour, IRandomPosition
 {
     public ObjectPoolManager objectPoolManager;
     public int poolSize;
+    public ObjectPoolManager.Pool pool;
 
     private void Start()
     {
         objectPoolManager = ObjectPoolManager.Instance;
-        poolSize = objectPoolManager.GetPoolSize("Enemy");
-        StartCoroutine(SpawnEnemy(poolSize));
+        pool = objectPoolManager.GetPool("Enemy");
+        poolSize = pool.poolSize;
+        ActiveFirst();
+        StartCoroutine(SpawnEnemy());
     }   
 
-    IEnumerator SpawnEnemy(int poolSize)
+    private void ActiveFirst()    // 게임 실행했을 때 한 번에 다 생성
     {
-            for (int i =0 ; i < poolSize; i++)
+        if (pool.tag == "Enemy")
+        {
+            foreach (var obj in objectPoolManager.poolDictionary[pool.tag])
+            {
+                obj.transform.position = GetRandomPosition();
+                obj.SetActive(true);
+            }
+        }
+    }
+
+    public IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            int activeEnemy = GetActiveEnemyNum();
+            if (activeEnemy < pool.poolSize)
             {
                 Vector3 spawnPos = GetRandomPosition();
-                objectPoolManager.SpawnFromPool("Enemy", spawnPos);
+                objectPoolManager.SpawnFromPool("Enemy");
             }
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.1f);
+        }    
+    }
 
+    private int GetActiveEnemyNum()
+    {
+        int num = 0;
+        if (pool.tag == "Enemy")
+        {
+            foreach (var obj in objectPoolManager.poolDictionary[pool.tag])
+            {
+                if (obj.activeSelf)
+                    num++;
+            }
+        }
+        return num;
     }
 
     public Vector3 GetRandomPosition()
     {
         // TODO: x, z 범위 두 군데 설정하기
-        float x = Random.Range(-12.0f, -7.0f);
+        float x = Random.Range(-12.0f, 0f);
         float y = 0;
         float z = Random.Range(0.0f, 10.0f);
 
