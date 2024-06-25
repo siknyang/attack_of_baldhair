@@ -51,8 +51,19 @@ public class PlayerBaseState : IState
     protected Vector3 GetMovementDirection()
     {
 
-        Vector3 dir = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).normalized;
-        return dir;
+        //Vector3 dir = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).normalized;
+        //return dir;
+
+        if (stateMachine.GetCurrentTarget() != null)
+        {
+            Vector3 dir = (stateMachine.GetCurrentTarget().transform.position - stateMachine.Player.transform.position).normalized;
+            return dir;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
+
     }
 
     void Move(Vector3 movementDirection)
@@ -106,6 +117,8 @@ public class PlayerBaseState : IState
         }
     }
 
+
+    /*
     protected bool IsInChasingRange()
     {
         float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
@@ -119,4 +132,49 @@ public class PlayerBaseState : IState
 
         return enemyDistanceSqr <= stateMachine.Player.Data.AttackRange * stateMachine.Player.Data.AttackRange;
     }
+    */
+
+
+
+
+    protected bool IsInChasingRange()
+    {
+        foreach (HealthSystem target in stateMachine.Targets)
+        {
+            if (target != null)
+            {
+                float enemyDistanceSqr = (target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
+                float chasingRangeSqr = stateMachine.Player.Data.EnemyChasingRange * stateMachine.Player.Data.EnemyChasingRange;
+
+                if (enemyDistanceSqr <= chasingRangeSqr)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected bool IsInAttackRange()
+    {
+        foreach (HealthSystem target in stateMachine.Targets)
+        {
+            if (target != null)
+            {
+                float enemyDistanceSqr = (target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
+                float attackRangeSqr = stateMachine.Player.Data.AttackRange * stateMachine.Player.Data.AttackRange;
+
+                if (enemyDistanceSqr <= attackRangeSqr)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
 }

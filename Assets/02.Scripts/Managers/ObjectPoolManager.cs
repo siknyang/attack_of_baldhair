@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IInfinite     // 계속해서 스폰
+interface IRandomPosition     // 계속해서 스폰
 {
-    IEnumerator SpawnObject();
+    Vector3 GetRandomPosition();
 }
 
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
@@ -19,16 +19,16 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         public LayerMask collisionLayer;    // 어느 레이어에 충돌하면 사라지게 할지
     }
 
-    [SerializeField] protected List<Pool> pools = new List<Pool>();
-    protected Dictionary<string, Queue<GameObject>> poolDictionary;
+    public List<Pool> pools = new List<Pool>();
+    Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    protected virtual void Start()
+    void Start()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         Instance.InitializePool();
     }
 
-    public virtual void InitializePool()
+    public void InitializePool()
     {
         foreach (var pool in pools)
         {
@@ -44,7 +44,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         }
     }
 
-    public virtual GameObject SpawnFromPool(string tag, Vector3 pos)
+    public GameObject SpawnFromPool(string tag, Vector3 pos)
     {
         if (!poolDictionary.ContainsKey(tag))   // 태그가 일치하는 오브젝트를 탐색
         {
@@ -59,7 +59,8 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return obj;
     }
 
-    public virtual void ReturnToPool(GameObject obj, string tag)
+    // 봐서 삭제
+    public void ReturnToPool(GameObject obj, string tag)
     {
         if (!poolDictionary.ContainsKey(tag))   // 태그가 일치하는 오브젝트를 탐색
         {
@@ -68,5 +69,27 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         }
 
         obj.SetActive(false);
+    }
+
+    public int GetPoolSize(string tag)
+    {
+        foreach(var pool in pools)
+        {
+            if (pool.tag == tag)
+                return pool.poolSize;
+        }
+        Debug.LogWarning($"{tag} 태그를 가진 풀이 없습니다.");
+        return 0;
+    }
+
+    public Pool GetPool(string tag)
+    {
+        foreach (var pool in pools)
+        {
+            if (pool.tag == tag)
+                return pool;
+        }
+        Debug.LogWarning($"{tag} 태그를 가진 풀이 없습니다.");
+        return null;
     }
 }

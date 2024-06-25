@@ -5,9 +5,15 @@ public class PlayerAttackState : PlayerBaseState
     private bool alreadyAppliedForce;
     private bool alreadyShooting;
 
+    private HealthSystem currentTarget;
+
     private AttackInfoData attackInfoData;
 
     private bool hasWeapon; // 무기를 가지고 있는지 여부
+
+    private float shootInterval = 0.2f; // 발사 간격 설정
+
+    private float shootTimer = 0f; // 발사 간격을 계산할 타이머 변수
 
     public PlayerAttackState(PlayerStateMachine stateMachine, AttackInfoData attackInfoData) : base(stateMachine)
     {
@@ -30,7 +36,9 @@ public class PlayerAttackState : PlayerBaseState
         base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
         StopAnimation(stateMachine.Player.AnimationData.JustAttackParameterHash);
-       // alreadyShooting = false;
+        // 무기 관련 상태 초기화
+        alreadyShooting = false;
+        hasWeapon = false;
     }
 
     public override void Update()
@@ -47,8 +55,11 @@ public class PlayerAttackState : PlayerBaseState
 
             if (!alreadyShooting && normalizedTime >= stateMachine.Player.Data.AttackInfoData.Dealing_Start_TransitionTime)
             {
-                Shooting();
-                //alreadyShooting = true;
+                // 발사 간격 체크
+                if (CanShoot())
+                {
+                    Shooting();
+                }
             }
         }
         else
@@ -72,6 +83,19 @@ public class PlayerAttackState : PlayerBaseState
         }
     }
 
+    private bool CanShoot()
+    {
+        if (Time.time - shootTimer > shootInterval)
+        {
+            shootTimer = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void TryApplyForce()
     {
         if (alreadyAppliedForce) return;
@@ -82,11 +106,16 @@ public class PlayerAttackState : PlayerBaseState
         stateMachine.Player.ForceReceiver.AddForce(stateMachine.Player.transform.forward * attackInfoData.Force);
     }
 
+    public void SetTarget(HealthSystem target)
+    {
+        currentTarget = target;
+    }
 
-    
     public void Shooting() // 무기(가발) 발사
     {
-        Debug.Log("슈팅 실행");
+
+        // 현재 타겟 가져오기
+        //HealthSystem target = stateMachine.GetCurrentTarget();
 
         // 무기를 가지고 있는지 확인
         hasWeapon = stateMachine.Player.currentWeapon != null;
@@ -102,7 +131,9 @@ public class PlayerAttackState : PlayerBaseState
         if (weapon != null)
         {
             // 타겟 에너미 위치 가져오기
-            Vector3 targetPosition = stateMachine.Target.transform.position;
+            //Vector3 targetPosition = stateMachine.Target.transform.position;
+            //Vector3 targetPosition = stateMachine.GetCurrentTarget().transform.position;
+            Vector3 targetPosition = currentTarget.transform.position;
 
             // 무기를 플레이어에서 분리
             weapon.transform.SetParent(null);
@@ -117,7 +148,7 @@ public class PlayerAttackState : PlayerBaseState
             stateMachine.Player.currentWeapon = null;
         }
     }
-    
+
 
 
 }
