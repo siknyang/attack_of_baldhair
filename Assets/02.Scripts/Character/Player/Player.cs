@@ -25,6 +25,9 @@ public class Player : CharacterStats
 
     public float experienceToNextLevel = 100f; // 레벨업에 필요한 기본 경험치
 
+    // 아이템 관련
+    //private ItemData equippedItem; // 장착된 아이템
+
     private void Awake()
     {
 
@@ -88,12 +91,40 @@ public class Player : CharacterStats
         Debug.Log("현재 플레이어 레벨: " + level);
     }
 
-
     private void OnDie()
     {
         Animator.SetTrigger("Die");
         enabled = false;
     }
+
+    /*
+    // 아이템 장착
+    public void EquipItem(ItemData item)
+    {
+        if (equippedItem != null)
+        {
+            // 이미 장착된 아이템이 있다면 스탯 감소
+            DecreaseStats(equippedItem.itemName);
+        }
+
+        equippedItem = item;
+
+        // 새로운 아이템 장착 시 스탯 증가
+        IncreaseStats(item.itemName);
+        Debug.Log("아이템 장착: " + item.itemName);
+    }
+
+    // 아이템 해지
+    public void UnequipItem()
+    {
+        if (equippedItem != null)
+        {
+            DecreaseStats(equippedItem.itemName);
+            Debug.Log("아이템 해지: " + equippedItem.itemName);
+            equippedItem = null;
+        }
+    }
+    */
 
     private void OnDrawGizmosSelected() // 플레이어의 타켓(에너미)공격/추적(감지) 범위 기즈모
     {
