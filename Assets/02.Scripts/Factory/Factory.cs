@@ -18,6 +18,8 @@ public class Factory : MonoBehaviour
     public Text coinsText; // ( currentCoins / upgradeCost )
     public Button upgradeButton;
 
+    public Text mainSceneCoinsTxt; // 메인씬 상단바 현재 보유코인
+
     private bool canUpgrade; // 업그레이드 버튼
 
     void Start()
@@ -41,6 +43,11 @@ public class Factory : MonoBehaviour
         coinsText.text = $"<color=#FF0000>{currentCoins}</color> / {upgradeCost}";
         //coinsText.text = string.Format("{0} / {1}", currentCoins, upgradeCost);
         // string.Format으로 한줄에 입력하기
+
+        if (mainSceneCoinsTxt != null)
+        {
+            mainSceneCoinsTxt.text = currentCoins + "C";
+        }
 
         canUpgrade = currentCoins >= upgradeCost;   // 현재보유코인 >= 필요코인 이면 업그레이드 가능
         upgradeButton.interactable = canUpgrade;    // 업그레이드 버튼 활성화

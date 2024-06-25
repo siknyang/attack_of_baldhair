@@ -631,6 +631,7 @@ MonoBehaviour:
   nextLevelText: {fileID: 1920158680}
   coinsText: {fileID: 237651607}
   upgradeButton: {fileID: 520937304}
+  mainSceneCoinsTxt: {fileID: 1809431694}
 --- !u!114 &609799335 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7831266207197334390, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
@@ -2359,6 +2360,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4312307770460771398, guid: 004b82848a63fbd49825e6af9bd91e95,
+        type: 3}
+      propertyPath: m_Text
+      value: 0000
+      objectReference: {fileID: 0}
     - target: {fileID: 5076042707306703245, guid: 004b82848a63fbd49825e6af9bd91e95,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2514,6 +2520,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 004b82848a63fbd49825e6af9bd91e95, type: 3}
+--- !u!114 &1809431694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4312307770460771398, guid: 004b82848a63fbd49825e6af9bd91e95,
+    type: 3}
+  m_PrefabInstance: {fileID: 1809431693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1846515772 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9101700436475007428, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
