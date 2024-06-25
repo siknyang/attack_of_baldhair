@@ -26,7 +26,7 @@ public class IntroSceneManager : MonoBehaviour
 
        
 
-        SceneManager.LoadScene("Yuyerin"); // 버튼 누르면 씬 넘어가게
+        SceneManager.LoadScene("MainScene"); // 버튼 누르면 씬 넘어가게
 
 
     }

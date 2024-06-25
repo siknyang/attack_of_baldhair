@@ -102,7 +102,7 @@ public class SoundManager : MonoBehaviour
             case "IntroScene":
                 PlayBGM(casualSuspense);
                 break;
-            case "Yuyerin":
+            case "MainScene":
                 PlayBGM(casualTheme3Loop);
                 break;
                 // 추가적인 Scene이 있으면 여기에 추가할 수 있습니다.
@@ -182,6 +182,11 @@ public class SoundManager : MonoBehaviour
         PlaySFX(teleport);
     }
 
+    public void PlaySellSFX()
+    {
+        PlaySFX(buySell);
+    }
+
     // 특정 조건 SFX 재생
     // 해당 스크립트 update 에서 SoundManager.instance.PlayPlayerAttackSFX(); 이런식으로 넣어주면 됨
 
@@ -195,15 +200,9 @@ public class SoundManager : MonoBehaviour
         PlaySFX(hit);
     }
 
-    public void PlaySellSFX()
-    {
-        PlaySFX(buySell);
-    }
+    
 
-    public void PlayDontSellSFX()
-    {
-        PlaySFX(denied);
-    }
+    
 }
 
 
