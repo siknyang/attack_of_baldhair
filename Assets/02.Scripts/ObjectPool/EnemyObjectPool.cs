@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyObjectPool : MonoBehaviour, IRandomPosition
 {
     public ObjectPoolManager objectPoolManager;
-    public int poolSize;
-    public ObjectPoolManager.Pool pool;
+    private int poolSize;
+    private ObjectPoolManager.Pool pool;
 
     private void Start()
     {
