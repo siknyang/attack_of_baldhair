@@ -18,6 +18,11 @@ public class HealthSystem : MonoBehaviour
         IsDie = false;
     }
 
+    public void ResetHealth()    // 적 재생성 시 체력 초기화
+    {
+        health = maxHealth;
+    }
+
     public void TakeDamage(int damage)
     {
         if (health == 0) return;
