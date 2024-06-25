@@ -249,19 +249,7 @@ MonoBehaviour:
   - {fileID: 790984835}
   - {fileID: 789022324}
   inventory: {fileID: 1946522712}
-  itemNames:
-  - "\uC0AC\uACFC"
-  - "\uBE75"
-  - "\uCE58\uC988"
-  itemInfo:
-  - "\uC0AC\uACFC\uC0AC\uACFC\uC785\uB2C8\uB2E4"
-  - "\uBE75\uBE75\uBE75\uC785\uB2C8\uB2E4"
-  - "\uCE58\uC988\uCE58\uC988\uC785\uB2C8\uB2E4"
-  itemPrices: 320000009600000064000000
-  itemImages:
-  - {fileID: 21300000, guid: da7129ed6a246f048a49d8d97de2d2d4, type: 3}
-  - {fileID: 21300000, guid: 1a58749f555f75e48baa41893215b26e, type: 3}
-  - {fileID: 21300000, guid: 988aad686dc1fec48bbc0dee20cead64, type: 3}
+  items: []
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2871,6 +2859,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 54
       objectReference: {fileID: 0}
+    - target: {fileID: 5634154515202129319, guid: 004b82848a63fbd49825e6af9bd91e95,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6134765176121139636, guid: 004b82848a63fbd49825e6af9bd91e95,
         type: 3}
       propertyPath: m_Name
@@ -3024,6 +3017,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 59
       objectReference: {fileID: 0}
+    - target: {fileID: 7086960961117542666, guid: 004b82848a63fbd49825e6af9bd91e95,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086960961117542666, guid: 004b82848a63fbd49825e6af9bd91e95,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5fb2af6af5c9f5c419486c3117e2d38f,
+        type: 3}
     - target: {fileID: 8052455583967919476, guid: 004b82848a63fbd49825e6af9bd91e95,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -3181,18 +3185,6 @@ MonoBehaviour:
   - {fileID: 1989240981}
   - {fileID: 879135891}
   - {fileID: 952884509}
-  itemImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  itemNames:
-  - 
-  - 
-  - 
-  itemInfo:
-  - 
-  - 
-  - 
   emptyText: {fileID: 685007286}
   player: {fileID: 0}
 --- !u!224 &1946522713 stripped
