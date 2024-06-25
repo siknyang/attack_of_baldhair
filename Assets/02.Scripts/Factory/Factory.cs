@@ -13,7 +13,7 @@ public class Factory : MonoBehaviour
     public int currentLevel { get => data.currentLevel; set => data.currentLevel = value; }     // 현재 레벨
     public int nextLevel { get => data.nextLevel; set => data.nextLevel = value; }      // 다음 레벨
     public int currentCoins { get => data.currentCoins; set => data.currentCoins = value; }     // 현재 가지고있는 코인
-    public int coinsPerSec = 100;    // 1초에 생성되는 코인 100
+    public int coinsPerSec;    // 1초에 생성되는 코인
     public int upgradeCost { get => data.upgradeCost; set => data.upgradeCost = value; }    // 다음 레벨로 가기위해 필요한 코인
 
     public Text currentLevelText;
@@ -40,6 +40,7 @@ public class Factory : MonoBehaviour
     void Start()
     {
         LoadData();     // 게임이 시작할 때 저장된 데이터 불러오기
+        UpdateCoinsPerSec(); // coinsPerSec 값 업데이트
         InvokeRepeating("ProduceCoins", 1.0f, 1.0f); // (초기 지연시간, 반복간격)
         UpdateUI();
     }
@@ -64,8 +65,18 @@ public class Factory : MonoBehaviour
             mainSceneCoinsTxt.text = currentCoins + "C";
         }
 
-        canUpgrade = currentCoins >= upgradeCost;   // 현재보유코인 >= 필요코인 이면 업그레이드 가능
-        upgradeButton.interactable = canUpgrade;    // 업그레이드 버튼 활성화
+        //canUpgrade = currentCoins >= upgradeCost;   // 현재보유코인 >= 필요코인 이면 업그레이드 가능
+        //upgradeButton.interactable = canUpgrade;    // 업그레이드 버튼 활성화
+        if (currentCoins >= upgradeCost)
+        {
+            canUpgrade = true;
+            upgradeButton.interactable = true;
+        }
+        else
+        {
+            canUpgrade = false;
+            upgradeButton.interactable = false;
+        }
     }
 
     public void Upgrade()
@@ -76,8 +87,15 @@ public class Factory : MonoBehaviour
             currentLevel++;
             nextLevel++;
             upgradeCost += 50000; // 업그레이드 비용 증가
+            UpdateCoinsPerSec(); // 레벨이 올라가면 coinPerSec 값을 업데이트
+            SaveData();
             UpdateUI();
         }
+    }
+
+    void UpdateCoinsPerSec()
+    {
+        coinsPerSec = coinsPerSec * 2; // 1레벨 오를때마다 생산량 두배 증가
     }
 
     public void LoadData()     // 불러온 데이터
@@ -99,15 +117,19 @@ public class Factory : MonoBehaviour
             currentCoins = data.currentCoins;
             upgradeCost = data.upgradeCost;
         }
+        currentLevel = 1;
+        nextLevel = 2;
+        currentCoins = 0;
+        upgradeCost = 50000;
     }
 
     public void SaveData()     // 저장할 데이터
     {
         FactoryData data = new FactoryData();
         
-        data.currentLevel = currentLevel;
+        data.currentLevel = 1;
         data.nextLevel = nextLevel;
-        data.currentCoins = currentCoins;
+        data.currentCoins = 0;
         data.upgradeCost = upgradeCost;
 
         DataManager.Instance.SaveData(data);
