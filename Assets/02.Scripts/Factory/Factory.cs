@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class Factory : MonoBehaviour
 {
+    public static Factory Instance { get; private set; } // 싱글톤 인스턴스
+
     public FactoryData data;
+    public Text mainSceneCoinsTxt; // 메인씬 상단바 현재 보유코인
 
     public int currentLevel { get => data.currentLevel; set => data.currentLevel = value; }     // 현재 레벨
     public int nextLevel { get => data.nextLevel; set => data.nextLevel = value; }      // 다음 레벨
     public int currentCoins { get => data.currentCoins; set => data.currentCoins = value; }     // 현재 가지고있는 코인
-    public int coinsPerSec = 10000;    // 1초에 생성되는 코인 (1초당 100코인)
+    public int coinsPerSec = 100;    // 1초에 생성되는 코인 100
     public int upgradeCost { get => data.upgradeCost; set => data.upgradeCost = value; }    // 다음 레벨로 가기위해 필요한 코인
 
     public Text currentLevelText;
@@ -18,9 +21,21 @@ public class Factory : MonoBehaviour
     public Text coinsText; // ( currentCoins / upgradeCost )
     public Button upgradeButton;
 
-    public Text mainSceneCoinsTxt; // 메인씬 상단바 현재 보유코인
-
     private bool canUpgrade; // 업그레이드 버튼
+
+    private void Awake()
+    {
+        // 싱글톤 인스턴스 설정
+        if (Instance == null)
+        {
+            Instance = this;
+            GameObject.DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

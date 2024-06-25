@@ -34,13 +34,44 @@ public class ShopItem : MonoBehaviour
         itemImage.sprite = itemImageValue;
 
         buyButton.onClick.AddListener(BuyItem);
+        UpdateBuyButtonState(); // 초기상태 업데이트
     }
 
     private void BuyItem()
     {
-        inventory.AddItem(itemNameValue, itemInfoValue, itemImageValue);
-        Debug.Log($"Item bought: {itemNameValue}, {itemInfoValue}");
-        // 상점에서 구매버튼을 누르면 인벤토리에 아이템을 추가
-        // 아이템을 인벤토리에 추가할때마다 해당 아이템 수 증가
+        if (Factory.Instance.currentCoins >= itemPriceValue)
+        {
+            Factory.Instance.currentCoins -= itemPriceValue; // 코인 차감
+            inventory.AddItem(itemNameValue, itemInfoValue, itemImageValue);
+            // 상점에서 구매버튼을 누르면 인벤토리에 아이템을 추가
+            // 아이템을 인벤토리에 추가할때마다 해당 아이템 수 증가
+            UpdateBuyButtonState(); // 구매 후 버튼 상태 업데이트
+        }
+
     }
+
+    void UpdateBuyButtonState()
+    {
+        if (Factory.Instance != null)
+        {
+            if (Factory.Instance.currentCoins >= itemPriceValue)
+            {
+                buyButton.interactable = true; // 코인 충분하면 버튼 활성화
+            }
+            else
+            {
+                buyButton.interactable = false; // 코인 부족하면 버튼 비활성화
+            }
+        }
+        else
+        {
+            buyButton.interactable = false; // Factory.Instance가 null이면 버튼 비활성화
+        }
+    }
+
+    void Update()
+    {
+        UpdateBuyButtonState(); // 버튼 상태 업데이트    
+    }
+
 }
