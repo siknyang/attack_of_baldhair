@@ -72,20 +72,48 @@ public class Player : CharacterStats
         }
     }
 
-    public void EquipInventoryItem(ItemSO item)
+        /*
+    // 아이템 장착
+    public void EquipItem(ItemData item)
+    {
+        if (equippedItem != null)
+        {
+            // 이미 장착된 아이템이 있다면 스탯 감소
+            DecreaseStats(equippedItem.itemName);
+        }
+
+        equippedItem = item;
+
+        // 새로운 아이템 장착 시 스탯 증가
+        IncreaseStats(item.itemName);
+        Debug.Log("아이템 장착: " + item.itemName);
+    }
+
+    // 아이템 해지
+    public void UnequipItem()
+    {
+        if (equippedItem != null)
+        {
+            DecreaseStats(equippedItem.itemName);
+            Debug.Log("아이템 해지: " + equippedItem.itemName);
+            equippedItem = null;
+        }
+    }
+    */
+
+    public void EquipInventoryItem(ItemSO item) // 위 유정님 작성 스크립트 참고
     {
         equippdeItems.Add(item);
 
         switch (item.itemName)
         {
-            //case "발모제":
-            //    ticket += 1;
-            //    break;
             case "트리트먼트":
                 attackSpeed += 5;
+                Debug.Log($"트리트먼트 장착 : 공격속도 {attackSpeed}");
                 break;
             case "손":
                 attackPower += 10;
+                Debug.Log($"손 장착 : 공격속도 {attackPower}");
                 break;
         }
         Debug.Log($"아이템 장착 : {item.itemName}");
@@ -118,35 +146,6 @@ public class Player : CharacterStats
         Animator.SetTrigger("Die");
         enabled = false;
     }
-
-    /*
-    // 아이템 장착
-    public void EquipItem(ItemData item)
-    {
-        if (equippedItem != null)
-        {
-            // 이미 장착된 아이템이 있다면 스탯 감소
-            DecreaseStats(equippedItem.itemName);
-        }
-
-        equippedItem = item;
-
-        // 새로운 아이템 장착 시 스탯 증가
-        IncreaseStats(item.itemName);
-        Debug.Log("아이템 장착: " + item.itemName);
-    }
-
-    // 아이템 해지
-    public void UnequipItem()
-    {
-        if (equippedItem != null)
-        {
-            DecreaseStats(equippedItem.itemName);
-            Debug.Log("아이템 해지: " + equippedItem.itemName);
-            equippedItem = null;
-        }
-    }
-    */
 
     private void OnDrawGizmosSelected() // 플레이어의 타켓(에너미)공격/추적(감지) 범위 기즈모
     {
