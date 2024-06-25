@@ -48,7 +48,6 @@ public class PlayerStateMachine : StateMachine
         {
             detectionTimer = 0f;
             DetectAndAddTargets();
-            Debug.Log("주변 감지 호출");
         }
 
         // 가장 가까운 타겟을 가져옴
@@ -66,8 +65,6 @@ public class PlayerStateMachine : StateMachine
 
     private void DetectAndAddTargets()
     {
-        Debug.Log("감지");
-
         // 플레이어 주변의 적을 탐지하여 Targets 리스트에 추가
         Collider[] colliders = Physics.OverlapSphere(Player.transform.position, 10f, LayerMask.GetMask("Enemy")); // Enemy 레이어의 콜라이더들을 가져옴
 

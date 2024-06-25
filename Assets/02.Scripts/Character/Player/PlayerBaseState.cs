@@ -139,7 +139,6 @@ public class PlayerBaseState : IState
 
     protected bool IsInChasingRange()
     {
-        Debug.Log("target count " + stateMachine.Targets.Count);
         foreach (HealthSystem target in stateMachine.Targets)
         {
             if (target != null)
@@ -147,7 +146,6 @@ public class PlayerBaseState : IState
                 float enemyDistanceSqr = (target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
                 float chasingRangeSqr = stateMachine.Player.Data.EnemyChasingRange * stateMachine.Player.Data.EnemyChasingRange;
 
-                Debug.Log("baseChasing" + target.name);
                 if (enemyDistanceSqr <= chasingRangeSqr)
                 {
                     return true;
@@ -169,7 +167,6 @@ public class PlayerBaseState : IState
 
                 if (enemyDistanceSqr <= attackRangeSqr)
                 {
-                    Debug.Log("baseAttack");
                     return true;
                 }
             }

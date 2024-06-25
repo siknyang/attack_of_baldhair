@@ -6,6 +6,8 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     private int health;
     public event Action OnDie;
+    public event Action OnTakeDamage;
+    public bool IsEnemy { get; set; }
 
     public bool IsDie = false;
 
@@ -20,6 +22,11 @@ public class HealthSystem : MonoBehaviour
         if (health == 0) return;
 
         health = Mathf.Max(health - damage, 0);
+
+        if(IsEnemy) // ¿¡³Ê¹ÌÀÏ ¶§
+        {
+            OnTakeDamage?.Invoke(); // µ¥¹ÌÁö ¹ÞÀ» ¶§ ±ôºý±ôºý
+        }
 
         if (health == 0)
         {

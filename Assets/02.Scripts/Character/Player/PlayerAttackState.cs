@@ -59,7 +59,6 @@ public class PlayerAttackState : PlayerBaseState
                 if (CanShoot())
                 {
                     Shooting();
-                    Debug.Log("슈팅 호출");
                 }
             }
         }
@@ -114,11 +113,9 @@ public class PlayerAttackState : PlayerBaseState
 
     public void Shooting() // 무기(가발) 발사
     {
-        Debug.Log("슈팅 실행");
 
         // 현재 타겟 가져오기
         //HealthSystem target = stateMachine.GetCurrentTarget();
-
 
         // 무기를 가지고 있는지 확인
         hasWeapon = stateMachine.Player.currentWeapon != null;
