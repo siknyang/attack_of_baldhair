@@ -5,29 +5,31 @@ using UnityEngine;
 public class EnemyObjectPool : MonoBehaviour, IRandomPosition
 {
     public ObjectPoolManager objectPoolManager;
+    public int poolSize;
 
     private void Start()
     {
         objectPoolManager = ObjectPoolManager.Instance;
-        int poolSize = objectPoolManager.GetPoolSize("Enemy");
-        SpawnEnemy(poolSize);
-    }
+        poolSize = objectPoolManager.GetPoolSize("Enemy");
+        StartCoroutine(SpawnEnemy(poolSize));
+    }   
 
-        // 불러오고 싶은 만큼만 불러오기
-
-    private void SpawnEnemy(int poolSize)
+    IEnumerator SpawnEnemy(int poolSize)
     {
-        for (int i =0 ; i < poolSize; i++)
-        {
-            Vector3 spawnPos = GetRandomPosition();
-            objectPoolManager.SpawnFromPool("Enemy", spawnPos);
-        }
+            for (int i =0 ; i < poolSize; i++)
+            {
+                Vector3 spawnPos = GetRandomPosition();
+                objectPoolManager.SpawnFromPool("Enemy", spawnPos);
+            }
+
+            yield return new WaitForSeconds(1.0f);
 
     }
 
     public Vector3 GetRandomPosition()
     {
-        float x = Random.Range(-14.0f, 14.0f);
+        // TODO: x, z 범위 두 군데 설정하기
+        float x = Random.Range(-12.0f, -7.0f);
         float y = 0;
         float z = Random.Range(0.0f, 10.0f);
 
