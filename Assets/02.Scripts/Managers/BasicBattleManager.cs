@@ -13,6 +13,7 @@ public class BasicBattleManager : MonoBehaviour
 
     private Player player;
     private bool isPlayerDead = false;
+    private int initialEnemyCount = 5;
 
     private void Awake()
     {
@@ -32,14 +33,21 @@ public class BasicBattleManager : MonoBehaviour
         this.player = player;
     }
 
-    private void StartBattle(int enemyCount)
+    private void Start()
     {
+        StartBattle(initialEnemyCount);
+    }
+
+    public void StartBattle(int enemyCount)
+    {
+        GameObject playerGO = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
+        player = playerGO.GetComponent<Player>();
         StartCoroutine(BasicBattle(enemyCount));
     }
 
     IEnumerator BasicBattle(int enemyCount)
     {
-        List<Enemy> enemies = SpawnEnemies(enemyCount);
+        SpawnEnemies(enemyCount);
 
         while (true)
         {
@@ -51,39 +59,26 @@ public class BasicBattleManager : MonoBehaviour
 
             yield return null;
 
-            enemies = enemies.FindAll(enemy => enemy.health != null && enemy.health > 0);
-
-            if (enemies.Count == 0)
-            {
-                enemies = SpawnEnemies(enemyCount);
-            }
-        }
-
-        if (player.health <= 0)
-        {
-            //부활 스폰 로직
+            yield return new WaitForSeconds(1);
+            SpawnEnemies(2);
         }
     }
 
-    private List<Enemy> SpawnEnemies(int enemyCount)
+    private void SpawnEnemies(int enemyCount)
     {
-        List<Enemy> enemies = new List<Enemy>();
-
         for (int i = 0; i < enemyCount; i++)
         {
             Transform spawnPoint = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length)]; //Random.Range가 그냥 호출은 되지 않아서 앞에 UnityEngine 추가
             GameObject enemyGO = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
             Enemy enemy = enemyGO.GetComponent<Enemy>();
-            enemies.Add(enemy);
         }
-
-        return enemies;
     }
 
     private IEnumerator RespawnPlayer()
     {
         yield return new WaitForSeconds(2);
         GameObject playerGO = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
+        player = playerGO.GetComponent<Player>();
         Initialize(player);
         isPlayerDead = false;
     }

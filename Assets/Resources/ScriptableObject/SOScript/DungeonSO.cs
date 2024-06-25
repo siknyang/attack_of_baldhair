@@ -16,5 +16,4 @@ public class DungeonSO : ScriptableObject
     public DungeonType Type;
     public int reward;
     public int defaultEnemyNum;
-    public GameObject mapPrefab;
 }
