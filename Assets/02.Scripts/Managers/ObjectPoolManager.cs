@@ -24,7 +24,6 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     protected virtual void Start()
     {
-        
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         Instance.InitializePool();
     }
