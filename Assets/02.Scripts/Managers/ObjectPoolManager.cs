@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IRandomPosition     // 계속해서 스폰
+interface IRandomPosition
 {
     Vector3 GetRandomPosition();
 }
@@ -22,7 +22,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     public List<Pool> pools = new List<Pool>();
     Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    void Start()
+    void Awake()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         Instance.InitializePool();
@@ -36,7 +36,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
             for (int i = 0; i < pool.poolSize; i++)
             {
-                GameObject obj = Instantiate(pool.prefab, pool.spawnPos);
+                GameObject obj = Instantiate(pool.prefab, pool.spawnPos, transform);
                 obj.SetActive(false);
                 objPool.Enqueue(obj);
             }
