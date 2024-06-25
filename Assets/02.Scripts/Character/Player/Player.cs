@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : CharacterStats
@@ -27,6 +29,7 @@ public class Player : CharacterStats
 
     // 아이템 관련
     //private ItemData equippedItem; // 장착된 아이템
+    private List<ItemSO> equippdeItems = new List<ItemSO>();
 
     private void Awake()
     {
@@ -67,6 +70,25 @@ public class Player : CharacterStats
             currentWeapon.GetComponent<PlayerWeapon>().damage = Data.AttackInfoData.Damage;
             currentWeapon.transform.SetParent(SpawnPos);
         }
+    }
+
+    public void EquipInventoryItem(ItemSO item)
+    {
+        equippdeItems.Add(item);
+
+        switch (item.itemName)
+        {
+            //case "발모제":
+            //    ticket += 1;
+            //    break;
+            case "트리트먼트":
+                attackSpeed += 5;
+                break;
+            case "손":
+                attackPower += 10;
+                break;
+        }
+        Debug.Log($"아이템 장착 : {item.itemName}");
     }
 
     public void AddExperience(float xp)

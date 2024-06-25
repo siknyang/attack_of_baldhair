@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: ItemMedicineSO
   m_EditorClassIdentifier: 
   itemName: "\uBC1C\uBAA8\uC81C"
-  itemDescription: "\uC790\uB77C\uB098\uB77C \uBA38\uB9AC\uBA38\uB9AC. \uB358\uC804
-    \uC785\uC7A5 \uAC00\uB2A5."
+  itemDescription: "\uB358\uC804\uC785\uC7A5\uAD8C     +1"
   itemType: 0
   itemPrice: 5000
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b7f77607c82ea4142a2070c0e37e1756, type: 3}
   dropPrefab: {fileID: 0}
   canStack: 1
   maxStackAmount: 99
