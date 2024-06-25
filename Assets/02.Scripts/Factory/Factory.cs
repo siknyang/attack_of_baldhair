@@ -29,7 +29,9 @@ public class Factory : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            GameObject.DontDestroyOnLoad(gameObject);
+            //GameObject.DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
+
         }
         else
         {
@@ -95,7 +97,8 @@ public class Factory : MonoBehaviour
 
     void UpdateCoinsPerSec()
     {
-        coinsPerSec = coinsPerSec * 2; // 1레벨 오를때마다 생산량 두배 증가
+        // currentLevel = coinsPerSec + 5000; // 1레벨 오를때마다 생산량 증가... 가 될리가
+        coinsPerSec = currentLevel * 5000; // 1레벨 오를때마다 생산량 증가
     }
 
     public void LoadData()     // 불러온 데이터
@@ -118,12 +121,12 @@ public class Factory : MonoBehaviour
             upgradeCost = data.upgradeCost;
         }
 
-        // !!! 초기값 세팅하는곳 !!!
+        // !!! 초기값 세팅하는곳 !!! ★★★★★★★
         currentLevel = 1;
         nextLevel = 2;
-        currentCoins = 3000;
+        currentCoins = 50000;
         upgradeCost = 50000;
-        coinsPerSec = 100; 
+        // coinsPerSec = 5000; 
     }
 
     public void SaveData()     // 저장할 데이터

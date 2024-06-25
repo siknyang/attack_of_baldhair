@@ -7,10 +7,12 @@ public class ShopManager : MonoBehaviour
     public ShopItem[] shopItems;    // 상점 아이템 배열
     public Inventory inventory;     // 인벤토리 참조
 
-    public string[] itemNames;      // 아이템 이름 배열
-    public string[] itemInfo;       // 아이템 정보 배열
-    public int[] itemPrices;        // 아이템 가격 배열
-    public Sprite[] itemImages;     // 아이템 이미지 배열
+    public ItemSO[] items;
+
+    //public string[] itemNames;      // 아이템 이름 배열
+    //public string[] itemInfo;       // 아이템 정보 배열
+    //public int[] itemPrices;        // 아이템 가격 배열
+    //public Sprite[] itemImages;     // 아이템 이미지 배열
 
     void Start()
     {
@@ -21,9 +23,9 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < shopItems.Length; i++)
         {
-            if (i < itemNames.Length && i < itemInfo.Length && i < itemPrices.Length && i< itemImages.Length)
+            if (i < items.Length)
             {
-                shopItems[i].Initialize(itemNames[i], itemInfo[i], itemPrices[i], itemImages[i], inventory);
+                shopItems[i].Initialize(items[i], inventory);
             }
             else
             {

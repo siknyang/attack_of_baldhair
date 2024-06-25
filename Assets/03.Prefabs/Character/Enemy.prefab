@@ -784,6 +784,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   IsDie: 0
+  hitTextPrefab: {fileID: 4802180475849641325, guid: c1a468be963a80f47a85a882ff2c8cf2,
+    type: 3}
 --- !u!1 &3666438682701508354
 GameObject:
   m_ObjectHideFlags: 0

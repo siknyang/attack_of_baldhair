@@ -14,7 +14,7 @@ public class ItemSO : ScriptableObject
     public string itemName;
     public string itemDescription;
     public ItemType itemType;
-    public float itemPrice;
+    public int itemPrice;
     public Sprite icon;
     public GameObject dropPrefab;
 
