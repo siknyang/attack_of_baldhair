@@ -146,6 +146,8 @@ public class PlayerAttackState : PlayerBaseState
             weaponRigidbody.velocity = shootDirection * shootForce;
             //weaponRigidbody.AddForce(throwDirection *  throwForce, ForceMode.Impulse);
 
+            SoundManager.instance.PlayPlayerAttackSFX();
+
             stateMachine.Player.currentWeapon = null;
         }
     }

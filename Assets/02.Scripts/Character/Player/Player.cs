@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Player : CharacterStats
@@ -27,6 +28,9 @@ public class Player : CharacterStats
 
     public float experienceToNextLevel = 100f; // 레벨업에 필요한 기본 경험치
 
+    public event Action OnExperienceChanged;
+    public event Action OnLevelChanged;
+
     // 아이템 관련
     //private ItemData equippedItem; // 장착된 아이템
     private List<ItemSO> equippdeItems = new List<ItemSO>();
@@ -49,6 +53,8 @@ public class Player : CharacterStats
         LoadData();     // 게임이 시작할 때 저장된 데이터 불러오기
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
+        OnExperienceChanged?.Invoke(); // 초기 UI 업데이트
+        OnLevelChanged?.Invoke(); // 초기 UI 업데이트
     }
 
     private void Update()
@@ -128,6 +134,7 @@ public class Player : CharacterStats
         {
             LevelUp();
         }
+        OnExperienceChanged?.Invoke();
     }
 
     private void LevelUp()
@@ -139,6 +146,7 @@ public class Player : CharacterStats
         attackSpeed += 0.1f; // 레벨업 시 공격 속도 증가
 
         Debug.Log("현재 플레이어 레벨: " + level);
+        OnLevelChanged?.Invoke();
     }
 
     private void OnDie()
