@@ -48,22 +48,23 @@ public class PlayerAttackState : PlayerBaseState
         ForceMove();
 
         float normalizedTime = GetNormalizedTime(stateMachine.Player.Animator, "JustAttack");
-        if (normalizedTime < 1f)
-        {
+        //if (normalizedTime < 1f)
+        //{
             if (normalizedTime >= attackInfoData.ForceTransitionTime)
                 TryApplyForce();
 
-            if (!alreadyShooting && normalizedTime >= stateMachine.Player.Data.AttackInfoData.Dealing_Start_TransitionTime)
-            {
+            //if (!alreadyShooting && normalizedTime >= stateMachine.Player.Data.AttackInfoData.Dealing_Start_TransitionTime)
+            //{
                 // 발사 간격 체크
                 if (CanShoot())
                 {
                     Shooting();
+                    Debug.Log("슈팅호출");
                 }
-            }
-        }
-        else
-        {
+            //}
+        //}
+       // else
+        //{
             if (IsInAttackRange())
             {
                 stateMachine.ChangeState(stateMachine.AttackState);
@@ -80,7 +81,7 @@ public class PlayerAttackState : PlayerBaseState
                 stateMachine.ChangeState(stateMachine.IdleState);
                 return;
             }
-        }
+        //}
     }
 
     private bool CanShoot()

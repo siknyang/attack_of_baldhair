@@ -89,7 +89,6 @@ public class PlayerStateMachine : StateMachine
         {
             Targets.Add(obj);
             Debug.Log("타켓 추가");
-            Debug.Log("타겟 이름" + obj.name);
         }
     }
 
