@@ -20,7 +20,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip hover;
     public AudioClip denied;
     public AudioClip unequip;
-    public AudioClip buySell;
+    public AudioClip confirm;
     public AudioClip hit;
     public AudioClip teleport;
     public AudioClip cannon;
@@ -102,10 +102,10 @@ public class SoundManager : MonoBehaviour
             case "IntroScene":
                 PlayBGM(casualSuspense);
                 break;
-            case "Yuyerin":
+            case "MainScene":
                 PlayBGM(casualTheme3Loop);
                 break;
-                // 추가적인 Scene이 있으면 여기에 추가할 수 있습니다.
+                // 던전씬 나중에 이어주기
         }
 
         // 슬라이더 연결 재설정
@@ -197,7 +197,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySellSFX()
     {
-        PlaySFX(buySell);
+        PlaySFX(confirm);
     }
 
     public void PlayDontSellSFX()
