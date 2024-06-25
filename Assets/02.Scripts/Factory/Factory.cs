@@ -117,10 +117,13 @@ public class Factory : MonoBehaviour
             currentCoins = data.currentCoins;
             upgradeCost = data.upgradeCost;
         }
+
+        // !!! 초기값 세팅하는곳 !!!
         currentLevel = 1;
         nextLevel = 2;
-        currentCoins = 0;
+        currentCoins = 3000;
         upgradeCost = 50000;
+        coinsPerSec = 100; 
     }
 
     public void SaveData()     // 저장할 데이터

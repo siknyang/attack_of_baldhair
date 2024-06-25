@@ -250,7 +250,7 @@ MonoBehaviour:
     currentCoins: 0
     upgradeCost: 0
   mainSceneCoinsTxt: {fileID: 1809431694}
-  coinsPerSec: 2000
+  coinsPerSec: 0
   currentLevelText: {fileID: 1519545525}
   nextLevelText: {fileID: 1920158680}
   coinsText: {fileID: 237651607}
@@ -2383,7 +2383,17 @@ PrefabInstance:
     - target: {fileID: 4312307770460771398, guid: 004b82848a63fbd49825e6af9bd91e95,
         type: 3}
       propertyPath: m_Text
-      value: 00000000
+      value: 0000000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4312307770460771398, guid: 004b82848a63fbd49825e6af9bd91e95,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904805713807081733, guid: 004b82848a63fbd49825e6af9bd91e95,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 267
       objectReference: {fileID: 0}
     - target: {fileID: 5076042707306703245, guid: 004b82848a63fbd49825e6af9bd91e95,
         type: 3}
