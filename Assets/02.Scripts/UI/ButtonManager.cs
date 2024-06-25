@@ -10,8 +10,21 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene("MainScene");
     }
 
-    public void DungeonBtn()
+    public void Dungeon1Btn()
     {
+        DungeonManager.Instance.buttonClicked = "Dungeon1Btn";
+        SceneManager.LoadScene("DungeonScene");
+    }
+
+    public void Dungeon2Btn()
+    {
+        DungeonManager.Instance.buttonClicked = "Dungeon2Btn";
+        SceneManager.LoadScene("DungeonScene");
+    }
+
+    public void Dungeon3Btn()
+    {
+        DungeonManager.Instance.buttonClicked = "Dungeon3Btn";
         SceneManager.LoadScene("DungeonScene");
     }
 

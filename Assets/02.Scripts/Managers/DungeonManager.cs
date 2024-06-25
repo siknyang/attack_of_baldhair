@@ -20,6 +20,8 @@ public class DungeonManager : MonoBehaviour
 
     private Player player;
 
+    public string buttonClicked;
+
     private void Awake()
     {
         if (Instance == null)
@@ -57,7 +59,7 @@ public class DungeonManager : MonoBehaviour
 
     IEnumerator DungeonBattle(DungeonSO dungeonSO)
     {
-        List<Enemy> enemies = SpawnEnemy(CalculateEnemyCount(dungeonSO));
+        List<Enemy> enemies = SpawnEnemy(5);
 
         while (player.health > 0 && enemies.Count > 0)
         {
@@ -96,20 +98,19 @@ public class DungeonManager : MonoBehaviour
     private void DungeonCleared(DungeonSO dungeonSO)
     {
         GiveReward(dungeonSO);
-        LevelUPDungeon(dungeonSO.name);
     }
 
     private void GiveReward(DungeonSO dungeonSO)
     {
-        switch(dungeonSO.Type)
+        switch(DungeonManager.Instance.buttonClicked)
         {
-            case DungeonType.Coin:
+            case "Dungeon1Btn":
                 player.coin += dungeonSO.reward;
                 break;
-            case DungeonType.Exp:
+            case "Dungeon2Btn":
                 player.experience += dungeonSO.reward;
                 break;
-            case DungeonType.Random: //지피티의 도움을 받았습니다...
+            case "Dungeon3Btn": 
                 if(UnityEngine.Random.value > 0.5f)
                 {
                     player.coin += dungeonSO.reward;
@@ -120,18 +121,5 @@ public class DungeonManager : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    private void LevelUPDungeon(string dungeonName)
-    {
-        if (activeDungeons.ContainsKey(dungeonName))
-        {
-            activeDungeons[dungeonName].dungeonLv++;
-        }
-    }
-
-    private int CalculateEnemyCount(DungeonSO dungeonSO)
-    {
-        return dungeonSO.defaultEnemyNum + (dungeonSO.dungeonLv - 1) * 5;
     }
 }
