@@ -61,9 +61,22 @@ public class EnemyObjectPool : MonoBehaviour, IRandomPosition
     public Vector3 GetRandomPosition()
     {
         // TODO: x, z 범위 두 군데 설정하기
-        float x = Random.Range(-12.0f, 0f);
+        //float x;
+        //if (Random.value < 0.5f)
+        //    x = Random.Range(-14.0f, -7f);
+        //else
+        //    x = Random.Range(7.0f, 14f); ;
+
+        //float y = 0;
+
+        //float z;
+        //if (Random.value < 0.5f)
+        //    z = Random.Range(-14.0f, -7f);
+        //else
+        //    z = Random.Range(7.0f, 14f); ;
+        float x = Random.Range(-14.0f, 14f);
         float y = 0;
-        float z = Random.Range(0.0f, 10.0f);
+        float z = Random.Range(-14.0f, 14f);
 
         return new Vector3(x, y, z);
     }

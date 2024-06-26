@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11086778, g: 0.743466, b: 3.037554, a: 1}
+  m_IndirectSpecularColor: {r: 0.110894114, g: 0.7434931, b: 3.037551, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1243,6 +1243,7 @@ MonoBehaviour:
   itemCount: {fileID: 2034132994}
   equipButton: {fileID: 786074894}
   characterStats: {fileID: 0}
+  currentItem: {fileID: 0}
 --- !u!114 &896687499 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1046054302836430222, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
@@ -1511,6 +1512,7 @@ MonoBehaviour:
   itemCount: {fileID: 958917816}
   equipButton: {fileID: 1663981475}
   characterStats: {fileID: 0}
+  currentItem: {fileID: 0}
 --- !u!1 &958917813
 GameObject:
   m_ObjectHideFlags: 0
@@ -3416,7 +3418,7 @@ PrefabInstance:
     - target: {fileID: 6143169547738051517, guid: e1585c7ae51def34b905ee02b2db6748,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6143169547738051517, guid: e1585c7ae51def34b905ee02b2db6748,
         type: 3}
@@ -3426,7 +3428,7 @@ PrefabInstance:
     - target: {fileID: 6143169547738051517, guid: e1585c7ae51def34b905ee02b2db6748,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.22
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6143169547738051517, guid: e1585c7ae51def34b905ee02b2db6748,
         type: 3}
@@ -4113,11 +4115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPoolManager: {fileID: 1134722768}
-  poolSize: 0
-  pool:
-    prefab: {fileID: 0}
-    tag: 
-    poolSize: 0
 --- !u!114 &1920158680 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3911511111567204577, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
@@ -4148,6 +4145,8 @@ MonoBehaviour:
   - {fileID: 952884509}
   emptyText: {fileID: 685007286}
   player: {fileID: 0}
+  data:
+    itemList: []
 --- !u!224 &1946522713 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5465063917077160750, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
@@ -4295,6 +4294,7 @@ MonoBehaviour:
   itemCount: {fileID: 1544831512}
   equipButton: {fileID: 1674834706}
   characterStats: {fileID: 0}
+  currentItem: {fileID: 0}
 --- !u!114 &1990907206 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 444071873992731791, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
