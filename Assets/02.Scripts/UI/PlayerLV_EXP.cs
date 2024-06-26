@@ -10,6 +10,10 @@ public class PlayerLV_EXP : MonoBehaviour
     //[SerializeField] private Image experienceSlider;
     //[SerializeField] private Text experienceText;
 
+    [SerializeField] private Text attackPowerText;
+    [SerializeField] private Text attackSpeedText;
+
+
     private Player player;
 
     private void Awake()
@@ -26,6 +30,7 @@ public class PlayerLV_EXP : MonoBehaviour
             //player.OnCoinChanged += UpdateCoinUI;
             //UpdateExperienceUI();
             UpdateLevelUI();
+            
         }
     }
 
@@ -43,6 +48,8 @@ public class PlayerLV_EXP : MonoBehaviour
         if (player == null) return;
 
         levelText.text = player.level.ToString();
+        attackPowerText.text = player.attackPower.ToString();
+        attackSpeedText.text = player.attackSpeed.ToString();
     }
 
     private void OnDestroy()
