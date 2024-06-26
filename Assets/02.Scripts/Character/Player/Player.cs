@@ -182,7 +182,7 @@ public class Player : CharacterStats
             moveSpeed = 1.0f;
             attackRange = 3.0f;
             experience = 0;
-            coin = 0;
+            coin = 50000;
         }
         else    // null이 아니라면 저장된 데이터 불러와서 덮어 씌움
         {
