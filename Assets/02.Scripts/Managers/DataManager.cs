@@ -38,18 +38,3 @@ public class DataManager : Singleton<DataManager>
         return Resources.Load<ItemSO>("ScriptableObject/Data/" + data.itemName);
     }
 }
-
-// TODO: InvenData, SlotData 인벤토리 클래스로 옮기기
-// 저장하려는 데이터 묶음
-[Serializable]
-public class InvenData    // 슬롯들의 모음인 인벤토리
-{
-    public List<SlotData> itemList = new List<SlotData>();
-}
-
-[Serializable]
-public class SlotData    // 슬롯 하나의 아이템 정보
-{
-    public string itemName;
-    public int itemCount;
-}

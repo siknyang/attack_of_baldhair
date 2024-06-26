@@ -17,7 +17,7 @@ public class InventorySlot : MonoBehaviour
 
     public CharacterStats characterStats; // 캐릭터 스탯 클래스
 
-    private ItemSO currentItem;
+    public ItemSO currentItem;
 
     void Start()
     {

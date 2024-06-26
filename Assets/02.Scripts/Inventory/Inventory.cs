@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,8 +22,11 @@ public class Inventory : MonoBehaviour
 
     private Dictionary<string, int> itemCounts = new Dictionary<string, int>(); // 아이템 이름을 키로 하고, 수량을 값으로 가지는 딕셔너리
 
+    public InvenData data;
+
     void Start()
-    {  
+    {
+        LoadData();
         slots = GetComponentsInChildren<InventorySlot>();
         InitializeSlots();
         UpdateEmptyText();
@@ -105,4 +109,98 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
+
+    public void LoadData()
+    {
+        InvenData invenData = DataManager.Instance.LoadData<InvenData>();
+        Debug.Log(invenData);
+
+        if (invenData == null)
+            return;
+        //else
+        //{
+        //    for (int i = 0; i < invenData.itemList.Count; i++)
+        //    {
+        //        ItemSO itemData = DataManager.Instance.LoadItemSOData(invenData.itemList[i]);
+
+        //        if (itemData != null)
+        //        {
+        //            AddItem(itemData);
+        //        }
+        //    }
+        //}
+        for (int i = 0; i < invenData.itemList.Count; i++)
+        {
+            SlotData slotData = invenData.itemList[i];
+            ItemSO itemData = DataManager.Instance.LoadItemSOData(slotData);
+
+            if (itemData != null)
+            {
+                //AddItem(itemData);
+                //itemCounts[itemData.itemName] = slotData.itemCount;
+                //UpdateItemCount(itemData.itemName);
+                for (int j = 0; j < slots.Length; j++)
+                {
+                    if (slots[j].itemName.text == "가방이 비어있습니다")
+                    {
+                        slots[j].InitializeSlot(itemData);
+                        itemCounts[itemData.itemName] = slotData.itemCount;
+                        slots[j].UpdateItemCount(slotData.itemCount);
+                        break;
+                    }
+                }
+            }
+        }
+        UpdateEmptyText();
+    }
+
+    public void SaveData()
+    {
+        InvenData invenData = new InvenData();
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].currentItem == null)
+                continue;
+
+            SlotData slotdata = new SlotData();
+            slotdata.itemName = slots[i].currentItem.itemName;  // 슬롯에 있는 아이템 이름
+            //int slotItemCount = itemCounts[name];
+            slotdata.itemCount = itemCounts[slotdata.itemName];    // 슬롯에 있는 아이템 개수
+            invenData.itemList.Add(slotdata);
+        }
+
+        //foreach (var slot in slots)
+        //{
+        //    if (slot.itemName.text != "가방이 비어있습니다")
+        //    {
+        //        SlotData slotData = new SlotData
+        //        {
+        //            itemName = slot.itemName.text,
+        //            itemCount = itemCounts[slot.itemName.text]
+        //        };
+        //        invenData.itemList.Add(slotData);
+        //    }
+        //}
+
+        DataManager.Instance.SaveData(invenData);
+    }
+
+    private void OnApplicationQuit()    // 게임이 끝날 때 저장
+    {
+        SaveData();
+    }
+}
+
+[Serializable]
+public class InvenData    // 슬롯들의 모음인 인벤토리
+{
+    public List<SlotData> itemList = new List<SlotData>();
+}
+
+[Serializable]
+public class SlotData    // 슬롯 하나의 아이템 정보
+{
+    public string itemName;
+    public int itemCount;
 }
