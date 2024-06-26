@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Player : CharacterStats
@@ -27,6 +28,9 @@ public class Player : CharacterStats
 
     public float experienceToNextLevel = 100f; // 레벨업에 필요한 기본 경험치
 
+    public event Action OnExperienceChanged;
+    public event Action OnLevelChanged;
+
     // 아이템 관련
     //private ItemData equippedItem; // 장착된 아이템
     private List<ItemSO> equippdeItems = new List<ItemSO>();
@@ -49,6 +53,8 @@ public class Player : CharacterStats
         LoadData();     // 게임이 시작할 때 저장된 데이터 불러오기
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
+        OnExperienceChanged?.Invoke(); // 초기 UI 업데이트
+        OnLevelChanged?.Invoke(); // 초기 UI 업데이트
     }
 
     private void Update()
@@ -72,54 +78,7 @@ public class Player : CharacterStats
         }
     }
 
-    public void EquipInventoryItem(ItemSO item)
-    {
-        equippdeItems.Add(item);
-
-        switch (item.itemName)
-        {
-            //case "발모제":
-            //    ticket += 1;
-            //    break;
-            case "트리트먼트":
-                attackSpeed += 5;
-                break;
-            case "손":
-                attackPower += 10;
-                break;
-        }
-        Debug.Log($"아이템 장착 : {item.itemName}");
-    }
-
-    public void AddExperience(float xp)
-    {
-        experience += xp;
-        Debug.Log("플레이어 경험치 획득 : " + experience);
-
-        while (experience >= experienceToNextLevel)
-        {
-            LevelUp();
-        }
-    }
-
-    private void LevelUp()
-    {
-        level++;
-        experience -= experienceToNextLevel;
-        experienceToNextLevel = Mathf.RoundToInt(experienceToNextLevel * 1.25f); // 다음 레벨업에 필요한 경험치 증가
-        attackPower += 2; // 레벨업 시 공격력 증가
-        attackSpeed += 0.1f; // 레벨업 시 공격 속도 증가
-
-        Debug.Log("현재 플레이어 레벨: " + level);
-    }
-
-    private void OnDie()
-    {
-        Animator.SetTrigger("Die");
-        enabled = false;
-    }
-
-    /*
+        /*
     // 아이템 장착
     public void EquipItem(ItemData item)
     {
@@ -147,6 +106,54 @@ public class Player : CharacterStats
         }
     }
     */
+
+    public void EquipInventoryItem(ItemSO item) // 위 유정님 작성 스크립트 참고
+    {
+        equippdeItems.Add(item);
+
+        switch (item.itemName)
+        {
+            case "트리트먼트":
+                attackSpeed += 5;
+                Debug.Log($"트리트먼트 장착 : 공격속도 {attackSpeed}");
+                break;
+            case "손":
+                attackPower += 10;
+                Debug.Log($"손 장착 : 공격속도 {attackPower}");
+                break;
+        }
+        Debug.Log($"아이템 장착 : {item.itemName}");
+    }
+
+    public void AddExperience(float xp)
+    {
+        experience += xp;
+        Debug.Log("플레이어 경험치 획득 : " + experience);
+
+        while (experience >= experienceToNextLevel)
+        {
+            LevelUp();
+        }
+        OnExperienceChanged?.Invoke();
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        experience -= experienceToNextLevel;
+        experienceToNextLevel = Mathf.RoundToInt(experienceToNextLevel * 1.25f); // 다음 레벨업에 필요한 경험치 증가
+        attackPower += 2; // 레벨업 시 공격력 증가
+        attackSpeed += 0.1f; // 레벨업 시 공격 속도 증가
+
+        Debug.Log("현재 플레이어 레벨: " + level);
+        OnLevelChanged?.Invoke();
+    }
+
+    private void OnDie()
+    {
+        Animator.SetTrigger("Die");
+        enabled = false;
+    }
 
     private void OnDrawGizmosSelected() // 플레이어의 타켓(에너미)공격/추적(감지) 범위 기즈모
     {

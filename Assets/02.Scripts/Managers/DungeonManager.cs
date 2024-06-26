@@ -22,6 +22,8 @@ public class DungeonManager : MonoBehaviour
 
     public string buttonClicked;
 
+    public Inventory inventory;
+
     private void Awake()
     {
         if (Instance == null)
@@ -48,12 +50,20 @@ public class DungeonManager : MonoBehaviour
         this.player = player;
     }
 
-    public void EnterDungeon(string dungeonName)
+    public void EnterDungeon() // public void EnterDungeon(string dungeonName)
     {
-        if (activeDungeons.ContainsKey(dungeonName))
+        //if (activeDungeons.ContainsKey(dungeonName))
+        //{
+        //    DungeonSO dungeonSO = activeDungeons[dungeonName];
+        //    StartCoroutine(DungeonBattle(dungeonSO));
+        //}
+        if (inventory.UseItem("발모제"))
         {
-            DungeonSO dungeonSO = activeDungeons[dungeonName];
-            StartCoroutine(DungeonBattle(dungeonSO));
+            Debug.Log("던전입장");
+        }
+        else
+        {
+            Debug.Log("발모제 부족");
         }
     }
 

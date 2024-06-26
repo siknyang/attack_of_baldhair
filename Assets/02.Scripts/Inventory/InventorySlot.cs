@@ -65,7 +65,7 @@ public class InventorySlot : MonoBehaviour
         }
         else // true 일때
         {
-            UnequipItem(); // 아이템 해제 호출
+            UnEquipItem(); // 아이템 해제 호출
         }
     }
 
@@ -77,21 +77,59 @@ public class InventorySlot : MonoBehaviour
 
     void EquipItem()
     {
-        // 아이템 장착 로직 추가
         if (characterStats != null && currentItem != null)
         {
-            characterStats.IncreaseStats(currentItem.itemName);
+            switch (currentItem.itemName)
+            {
+                case "트리트먼트":
+                    characterStats.IncreaseAttackSpeed(5.0f);
+                    break;
+                case "손":
+                    characterStats.IncreaseAttackPower(10.0f);
+                    break;
+                default:
+                    break;
+            }
             Debug.Log($"아이템 장착 : {currentItem.itemName}");
         }
     }
 
-    void UnequipItem()
+    void UnEquipItem()
     {
-        // 아이템 해제 로직 추가
         if (characterStats != null && currentItem != null)
         {
-            characterStats.DecreaseStats(currentItem.itemName);
+            switch (currentItem.itemName)
+            {
+                case "트리트먼트":
+                    characterStats.IncreaseAttackSpeed(-5.0f);
+                    break;
+                case "손":
+                    characterStats.IncreaseAttackPower(-10.0f);
+                    break;
+                default:
+                    break;
+            }
             Debug.Log($"아이템 해제 : {currentItem.itemName}");
         }
     }
+
+    //void EquipItem()
+    //{
+    //    // 아이템 장착 로직 추가
+    //    if (characterStats != null && currentItem != null)
+    //    {
+    //        characterStats.IncreaseStats(currentItem.itemName);
+    //        Debug.Log($"아이템 장착 : {currentItem.itemName}");
+    //    }
+    //}
+
+    //void UnequipItem()
+    //{
+    //    // 아이템 해제 로직 추가
+    //    if (characterStats != null && currentItem != null)
+    //    {
+    //        characterStats.DecreaseStats(currentItem.itemName);
+    //        Debug.Log($"아이템 해제 : {currentItem.itemName}");
+    //    }
+    //}
 }

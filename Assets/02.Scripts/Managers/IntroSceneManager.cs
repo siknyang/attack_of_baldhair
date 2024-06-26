@@ -8,6 +8,10 @@ public class IntroSceneManager : MonoBehaviour
 {
     public InputField nicknameInputField;
 
+    void Start()
+    {
+        SoundManager.instance.PlayBGM(SoundManager.instance.casualSuspense);
+    }
     public void OnStartButtonClicked()
     {
         string nickname = nicknameInputField.text;
@@ -19,7 +23,12 @@ public class IntroSceneManager : MonoBehaviour
 
         PlayerPrefs.SetString("PlayerNickname", nickname);
         PlayerPrefs.Save(); // 저장을 명시적으로 호출
+
+       
+
         SceneManager.LoadScene("MainScene"); // 버튼 누르면 씬 넘어가게
+
+
     }
 }
 
