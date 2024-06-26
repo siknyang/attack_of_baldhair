@@ -635,6 +635,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &558883638 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1076627772412369900, guid: 004b82848a63fbd49825e6af9bd91e95,
+    type: 3}
+  m_PrefabInstance: {fileID: 1809431693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &609799335 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7831266207197334390, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
@@ -3995,6 +4007,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8856071175310090690, guid: 004b82848a63fbd49825e6af9bd91e95,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4963126188584291009, guid: 004b82848a63fbd49825e6af9bd91e95, type: 3}
@@ -4416,6 +4433,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034132991}
   m_CullTransparentMesh: 1
+--- !u!114 &2055554542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4608762223501702065, guid: 004b82848a63fbd49825e6af9bd91e95,
+    type: 3}
+  m_PrefabInstance: {fileID: 1809431693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2072523756 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8196241509607266268, guid: 41cfa75a877d77f4d80ccc66b9fff5a2,
@@ -4527,6 +4556,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelText: {fileID: 40671405}
+  attackPowerText: {fileID: 558883638}
+  attackSpeedText: {fileID: 2055554542}
 --- !u!224 &9004341169603738603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5076042707306703245, guid: 004b82848a63fbd49825e6af9bd91e95,
