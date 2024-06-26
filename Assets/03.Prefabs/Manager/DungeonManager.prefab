@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6444784478124078106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9075272962945804979}
+  - component: {fileID: 1654809728092839886}
+  m_Layer: 0
+  m_Name: DungeonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9075272962945804979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6444784478124078106}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.622168, y: -28.062832, z: -23.223063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1654809728092839886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6444784478124078106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ccf3e9f89eab94b9cf346df31c44e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameClearPanel: {fileID: 7687725303188043929, guid: 727203d361339004cb5b11d9a96d963e,
+    type: 3}
+  gameOverPanel: {fileID: 3341374707773160781, guid: 1eb10abdd88294b4c822d16d5754fe62,
+    type: 3}
+  playerPrefab: {fileID: 0}
+  playerSpawnPoint: {fileID: 0}
+  enemySpawnPoints:
+  - {fileID: 0}
+  enemyPrefab: {fileID: 0}
+  dungeonSOArray: []
+  buttonClicked: 
+  inventory: {fileID: 0}
